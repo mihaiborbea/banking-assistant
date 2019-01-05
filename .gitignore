@@ -31,3 +31,7 @@ node_modules/
 
 # build output
 dist
+
+#mongo data
+.mongo-data*
+data/
