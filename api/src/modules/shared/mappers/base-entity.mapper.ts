@@ -30,6 +30,7 @@ export class BaseEntityMapper<TModel extends Model> implements IEntityMapper<TMo
     }
   }
 
+  // TODO: add error handling on findOneAndUpdate
   public async update(data: TModel): Promise<TModel> {
     const { _id, ...model } = data as any;
     if (!this.isValidObjectId(_id)) {
