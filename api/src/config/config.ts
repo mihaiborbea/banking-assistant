@@ -1,3 +1,5 @@
+import { JwtModuleOptions } from "@nestjs/jwt";
+
 export interface DBConfig {
   database: string;
   host: string;
@@ -6,16 +8,9 @@ export interface DBConfig {
   password: string;
 }
 
-export interface AuthConfig {
-  jwtSecret: string;
-  signInOptions: {
-    expiresIn: number;
-  };
-}
-
 export interface IConfig {
   db: DBConfig;
-  auth: AuthConfig;
+  auth: JwtModuleOptions;
   enableHttpRequestLogging: boolean;
   host: string;
   port: number;
@@ -33,8 +28,8 @@ const Config: IConfig = {
     username: process.env.MONGODB_USERNAME || 'root'
   },
   auth: {
-    jwtSecret: process.env.JWT_SECRET || 'secretKey',
-    signInOptions: {
+    secretOrPrivateKey: process.env.JWT_SECRET || 'secretKey',
+    signOptions: {
       expiresIn: process.env.JWT_DURATION ? parseInt(process.env.JWT_DURATION, 10) : 60 * 60 * 3600
     }
   },
