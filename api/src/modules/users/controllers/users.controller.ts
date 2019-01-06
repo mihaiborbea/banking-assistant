@@ -10,6 +10,7 @@ export class UsersController {
   constructor(protected service: UsersService) {}
 
   @Post()
+  @UseGuards(AuthGuard())
   public async create(@Body() input: any, @Res() res: Response): Promise<void> {
     try {
       const user = await this.service.create(input);
@@ -20,6 +21,7 @@ export class UsersController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard())
   public async findOne(@Param('id')id: string, @Res() res: Response): Promise<void> {
     try {
       const user = await this.service.retrieveOne(id);
@@ -41,6 +43,7 @@ export class UsersController {
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard())
   public async update(@Body() input: any, @Res() res: Response): Promise<void> {
     try {
       const user = await this.service.update(input);
@@ -51,6 +54,7 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard())
   public async delete(@Param('id')id: string, @Res()res: Response): Promise<void> {
     try {
       const deleted = await this.service.delete(id);
