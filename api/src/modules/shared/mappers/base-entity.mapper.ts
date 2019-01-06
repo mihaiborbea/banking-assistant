@@ -1,10 +1,12 @@
 import { ModelType } from "typegoose";
 import { Types } from "mongoose";
+import { Injectable } from "@nestjs/common";
 
 import { Model } from "../models";
 import { IEntityMapper, ICollection } from "../interfaces";
 
-export class BaseMapper<TModel extends Model> implements IEntityMapper<TModel> {
+@Injectable()
+export class BaseEntityMapper<TModel extends Model> implements IEntityMapper<TModel> {
   protected collection: ModelType<TModel> & ICollection<TModel>;
 
   public async save(data: TModel): Promise<TModel> {
