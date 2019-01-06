@@ -6,8 +6,16 @@ export interface DBConfig {
   password: string;
 }
 
+export interface AuthConfig {
+  jwtSecret: string;
+  signInOptions: {
+    expiresIn: number;
+  };
+}
+
 export interface IConfig {
   db: DBConfig;
+  auth: AuthConfig;
   enableHttpRequestLogging: boolean;
   host: string;
   port: number;
@@ -23,6 +31,12 @@ const Config: IConfig = {
     password: process.env.MONGODB_PASSWORD || '',
     port: process.env.MONGODB_PORT || '27017',
     username: process.env.MONGODB_USERNAME || 'root'
+  },
+  auth: {
+    jwtSecret: process.env.JWT_SECRET || 'secretKey',
+    signInOptions: {
+      expiresIn: process.env.JWT_DURATION ? parseInt(process.env.JWT_DURATION, 10) : 60 * 60 * 3600
+    }
   },
   debug: true,
   enableHttpRequestLogging: true,

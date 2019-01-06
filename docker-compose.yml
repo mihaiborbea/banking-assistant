@@ -3,6 +3,7 @@ version: '3'
 services:
   api:
     build: api
+    container_name: hera_api
     volumes:
       - ./api:/app
     restart: always
@@ -18,6 +19,8 @@ services:
       - MONGODB_PORT=27017
       - MONGODB_USERNAME=root
       - MONGODB_PASSWORD=
+      - JWT_SECRET=secretKey
+      - JWT_DURATION=12960000
     dns: 8.8.8.8
 
   mongo:
