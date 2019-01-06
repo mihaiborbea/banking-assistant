@@ -14,5 +14,8 @@ import Config from 'src/config/config';
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
+  exports: [
+    PassportModule
+  ]
 })
 export class AuthModule {}

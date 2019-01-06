@@ -1,5 +1,6 @@
-import { Controller, Get, Res, Param, HttpStatus, Post, Body, Delete, Put } from "@nestjs/common";
+import { Controller, Get, Res, Param, HttpStatus, Post, Body, Delete, Put, UseGuards } from "@nestjs/common";
 import { Response } from "express";
+import { AuthGuard } from "@nestjs/passport";
 
 import { UsersService } from "../services/users.service";
 
@@ -29,6 +30,7 @@ export class UsersController {
   }
 
   @Get()
+  @UseGuards(AuthGuard())
   public async findAll(@Param()critera: any, @Res()res: Response): Promise<void> {
     try {
     const users = await this.service.retrieve(critera);
