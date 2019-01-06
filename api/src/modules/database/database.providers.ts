@@ -15,10 +15,11 @@ export const DatabaseProviders = [
     useFactory: async (): Promise<typeof mongoose> => {
       try {
         logger.log(`Connecting to MongoDB...`)
-        await mongoose.connect(DBConnectionURI, { useNewUrlParser: true })
-        logger.log(`Connected to MongoDB!`);
+        return await mongoose.connect(DBConnectionURI, { useNewUrlParser: true })
       } catch (error) {
         logger.error(`Failed to connect to MongoDb.\nError:\n ${error}`);
+      } finally {
+        logger.log(`Connected to MongoDB!`);
       }
     }
   },
