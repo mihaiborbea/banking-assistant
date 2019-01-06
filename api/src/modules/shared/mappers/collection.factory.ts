@@ -10,12 +10,12 @@ export class CollectionFactory<T> {
     };
 
     return Object.assign(obj, {
-      // async find(...args: any[]): Promise<any> {
-      //   return this.mapDocumentsToModels(await originals.find.apply(obj, args));
-      // },
-      // async findOne(...args: any[]): Promise<any> {
-      //   return this.mapDocumentToModel(await originals.findOne.apply(obj, args));
-      // },
+      async find(...args: any[]): Promise<any> {
+        return this.mapDocumentsToModels(await originals.find.apply(obj, args));
+      },
+      async findOne(...args: any[]): Promise<any> {
+        return this.mapDocumentToModel(await originals.findOne.apply(obj, args));
+      },
       async save(...args: any[]): Promise<any> {
         return this.mapDocumentToModel(await originals.save.apply(obj, args));
       },
