@@ -1,15 +1,12 @@
 {
   "extends": ["tslint:recommended", "tslint-sonarts"],
   "rules": {
+    "object-literal-sort-keys": false,
     "class-name": true,
     "arrow-parens": [true, "ban-single-arg-parens"],
     "comment-format": [true, "check-space"],
     "promise-function-async": true,
-    "only-arrow-functions": [
-      true,
-      "allow-declarations",
-      "allow-named-functions"
-    ],
+    "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
     "trailing-comma": [
       false,
       {
@@ -28,19 +25,8 @@
     "max-file-line-count": [true, 300],
     "indent": [true, "spaces", 2],
     "quotemark": [true, "single", "avoid-escape"],
-    "variable-name": [
-      true,
-      "allow-leading-underscore",
-      "allow-pascal-case",
-      "ban-keywords",
-      "check-format"
-    ],
-    "typedef": [
-      true,
-      "call-signature",
-      "parameter",
-      "member-variable-declaration"
-    ],
+    "variable-name": [true, "allow-leading-underscore", "allow-pascal-case", "ban-keywords", "check-format"],
+    "typedef": [true, "call-signature", "parameter", "member-variable-declaration"],
     "semicolon": [true, "always"],
     "triple-equals": [true, "allow-null-check"],
     "typedef-whitespace": [
@@ -53,14 +39,7 @@
         "variable-declaration": "nospace"
       }
     ],
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ],
+    "whitespace": [true, "check-branch", "check-decl", "check-operator", "check-separator", "check-type"],
     "cyclomatic-complexity": [true, 5],
     "member-access": true,
     "member-ordering": [

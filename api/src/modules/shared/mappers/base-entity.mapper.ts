@@ -1,12 +1,13 @@
-import { ModelType } from "typegoose";
-import { Types } from "mongoose";
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
+import { Types } from 'mongoose';
+import { ModelType } from 'typegoose';
 
-import { Model } from "../models";
-import { IEntityMapper, ICollection } from "../interfaces";
+import { ICollection, IEntityMapper } from '../interfaces';
+import { Model } from '../models';
 
 @Injectable()
-export class BaseEntityMapper<TModel extends Model> implements IEntityMapper<TModel> {
+export class BaseEntityMapper<TModel extends Model>
+  implements IEntityMapper<TModel> {
   protected collection: ModelType<TModel> & ICollection<TModel>;
 
   public async save(data: TModel): Promise<TModel> {
@@ -23,10 +24,10 @@ export class BaseEntityMapper<TModel extends Model> implements IEntityMapper<TMo
   }
 
   public async retrieveOne(id: string): Promise<TModel> {
-    if(this.isValidObjectId(id)) {
-    return this.collection.findOne({_id: new Types.ObjectId(id)});
+    if (this.isValidObjectId(id)) {
+      return this.collection.findOne({ _id: new Types.ObjectId(id) });
     } else {
-      throw new Error('Invalid ID')
+      throw new Error('Invalid ID');
     }
   }
 

@@ -1,4 +1,4 @@
-import { Model } from ".";
+import { Model } from '.';
 
 export interface IEntityService<TModel extends Model> {
   create(input: any): Promise<TModel>;

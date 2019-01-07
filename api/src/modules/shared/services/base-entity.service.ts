@@ -1,9 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 
-import { Model, IEntityService, IEntityMapper } from "../interfaces";
+import { IEntityMapper, IEntityService, Model } from '../interfaces';
 
 @Injectable()
-export class BaseEntityService<TModel extends Model> implements IEntityService<TModel> {
+export class BaseEntityService<TModel extends Model>
+  implements IEntityService<TModel> {
   protected mapper: IEntityMapper<TModel>;
 
   public async create(model: TModel): Promise<TModel> {

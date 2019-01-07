@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 
-import { BaseEntityService } from "src/modules/shared/services";
-import { User } from "../domain/models";
-import { UsersMapper } from "../domain/mappers";
+import { BaseEntityService } from 'src/modules/shared/services';
+import { UsersMapper } from '../domain/mappers';
+import { User } from '../domain/models';
 
 @Injectable()
 export class UsersService extends BaseEntityService<User> {

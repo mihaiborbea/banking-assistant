@@ -1,4 +1,4 @@
-import { JwtModuleOptions } from "@nestjs/jwt";
+import { JwtModuleOptions } from '@nestjs/jwt';
 
 export interface DBConfig {
   database: string;
@@ -30,7 +30,9 @@ const Config: IConfig = {
   auth: {
     secretOrPrivateKey: process.env.JWT_SECRET || 'secretKey',
     signOptions: {
-      expiresIn: process.env.JWT_DURATION ? parseInt(process.env.JWT_DURATION, 10) : 60 * 60 * 3600
+      expiresIn: process.env.JWT_DURATION
+        ? parseInt(process.env.JWT_DURATION, 10)
+        : 60 * 60 * 3600
     }
   },
   debug: true,
@@ -38,7 +40,7 @@ const Config: IConfig = {
   host: process.env.HOST || 'localhost',
   port: process.env.PORT ? parseInt(process.env.PORT, 10) : 3000,
   serveStatic: true,
-  serviceName: process.env.SERVICE_NAME || 'app',
+  serviceName: process.env.SERVICE_NAME || 'app'
 };
 
 export default Config;

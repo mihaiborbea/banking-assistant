@@ -1,13 +1,16 @@
-
+import { Logger } from '@nestjs/common';
 import * as mongoose from 'mongoose';
-import { Logger } from '@nestjs/common'
 import { inspect } from 'util';
 
 import Config, { DBConfig } from 'src/config/config';
 
 const DBConfig: DBConfig = Config.db;
-const DBCredentials: string = DBConfig.password ? `${DBConfig.username}:${DBConfig.password}@` : '';
-const DBConnectionURI: string = `mongodb://${DBCredentials}${DBConfig.host}:${DBConfig.port}/${DBConfig.database}`
+const DBCredentials: string = DBConfig.password
+  ? `${DBConfig.username}:${DBConfig.password}@`
+  : '';
+const DBConnectionURI: string = `mongodb://${DBCredentials}
+                                ${DBConfig.host}:${DBConfig.port}
+                                /${DBConfig.database}`;
 const logger = new Logger('Database');
 
 export const DatabaseProviders = [
@@ -15,11 +18,14 @@ export const DatabaseProviders = [
     provide: 'DBConnectionToken',
     useFactory: async (): Promise<typeof mongoose> => {
       try {
-        logger.log(`Connecting to MongoDB...`)
-        const connection = await mongoose.connect(DBConnectionURI, { useNewUrlParser: true,  })
+        logger.log(`Connecting to MongoDB...`);
+        const connection = await mongoose.connect(
+          DBConnectionURI,
+          { useNewUrlParser: true }
+        );
         mongoose.set('debug', (coll, method, query, doc, options) => {
-          logger.log(`${coll}.${method}(${inspect(query)})`)
-        })
+          logger.log(`${coll}.${method}(${inspect(query)})`);
+        });
         return connection;
       } catch (error) {
         logger.error(`Failed to connect to MongoDb.\nError:\n ${error}`);
@@ -27,5 +33,5 @@ export const DatabaseProviders = [
         logger.log(`Connected to MongoDB!`);
       }
     }
-  },
+  }
 ];

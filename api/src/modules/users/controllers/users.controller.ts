@@ -1,12 +1,22 @@
-import { Controller, Get, Res, Param, HttpStatus, Post, Body, Delete, Put, UseGuards } from "@nestjs/common";
-import { Response } from "express";
-import { AuthGuard } from "@nestjs/passport";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Res,
+  UseGuards
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Response } from 'express';
 
-import { UsersService } from "../services/users.service";
+import { UsersService } from '../services/users.service';
 
 @Controller('users')
 export class UsersController {
-
   constructor(protected service: UsersService) {}
 
   @Post()
@@ -22,7 +32,10 @@ export class UsersController {
 
   @Get(':id')
   @UseGuards(AuthGuard())
-  public async findOne(@Param('id')id: string, @Res() res: Response): Promise<void> {
+  public async findOne(
+    @Param('id') id: string,
+    @Res() res: Response
+  ): Promise<void> {
     try {
       const user = await this.service.retrieveOne(id);
       res.status(HttpStatus.OK).json(user);
@@ -33,10 +46,13 @@ export class UsersController {
 
   @Get()
   @UseGuards(AuthGuard())
-  public async findAll(@Param()critera: any, @Res()res: Response): Promise<void> {
+  public async findAll(
+    @Param() critera: any,
+    @Res() res: Response
+  ): Promise<void> {
     try {
-    const users = await this.service.retrieve(critera);
-    res.status(HttpStatus.OK).json(users);
+      const users = await this.service.retrieve(critera);
+      res.status(HttpStatus.OK).json(users);
     } catch {
       res.status(HttpStatus.BAD_REQUEST).send([]);
     }
@@ -48,18 +64,21 @@ export class UsersController {
     try {
       const user = await this.service.update(input);
       res.status(HttpStatus.OK).json(user);
-    } catch(e) {
+    } catch (e) {
       res.status(HttpStatus.BAD_REQUEST).send(e);
     }
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard())
-  public async delete(@Param('id')id: string, @Res()res: Response): Promise<void> {
+  public async delete(
+    @Param('id') id: string,
+    @Res() res: Response
+  ): Promise<void> {
     try {
       const deleted = await this.service.delete(id);
       res.status(HttpStatus.OK).json({ deleted });
-    } catch(e) {
+    } catch (e) {
       res.status(HttpStatus.BAD_REQUEST).json({ deleted: false, error: e });
     }
   }
