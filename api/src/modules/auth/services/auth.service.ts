@@ -1,17 +1,17 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from '../domain/interfaces/';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService) { }
+  constructor(private readonly jwtService: JwtService) {}
 
-  public async login() {
+  public async login(): Promise<any> {
     // check user credentials then construct the payload and sign a token to return
     const user: JwtPayload = { email: 'test@email.com' };
     const accessToken = this.jwtService.sign(user);
     return {
-      accessToken,
+      accessToken
     };
   }
 
