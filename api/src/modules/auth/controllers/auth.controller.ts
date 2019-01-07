@@ -1,6 +1,5 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AuthService } from '../services';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -9,11 +8,5 @@ export class AuthController {
   @Get('login')
   public async login(): Promise<any> {
     return await this.authService.login();
-  }
-
-  @Get('users')
-  @UseGuards(AuthGuard())
-  findAll() {
-    return [];
   }
 }
