@@ -8,9 +8,9 @@ const DBConfig: DBConfig = Config.db;
 const DBCredentials: string = DBConfig.password
   ? `${DBConfig.username}:${DBConfig.password}@`
   : '';
-const DBConnectionURI: string = `mongodb://${DBCredentials}
-                                ${DBConfig.host}:${DBConfig.port}
-                                /${DBConfig.database}`;
+const DBConnectionURI: string = `mongodb://${DBCredentials}${DBConfig.host}:${
+  DBConfig.port
+}/${DBConfig.database}`;
 const logger = new Logger('Database');
 
 export const DatabaseProviders = [
