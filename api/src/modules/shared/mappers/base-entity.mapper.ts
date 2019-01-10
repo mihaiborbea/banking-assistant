@@ -31,6 +31,12 @@ export class BaseEntityMapper<TModel extends Model>
     }
   }
 
+  public async retrieveOneByCriteria(criteria: {
+    [key: string]: any;
+  }): Promise<TModel> {
+    return this.collection.findOne(criteria);
+  }
+
   // TODO: add error handling on findOneAndUpdate
   public async update(data: TModel): Promise<TModel> {
     const { _id, ...model } = data as any;
