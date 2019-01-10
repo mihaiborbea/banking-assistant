@@ -1,24 +1,47 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from '../domain/interfaces/';
+
+import { User } from 'src/modules/shared/models';
+import { UsersService } from 'src/modules/users/services';
+import { JwtPayload, JwtToken, UserCredentials } from '../domain/interfaces';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private usersService: UsersService
+  ) {}
 
-  public async login(): Promise<any> {
-    // check user credentials then construct the payload and sign a token to return
-    const user: JwtPayload = { email: 'test@email.com' };
-    const accessToken = this.jwtService.sign(user);
-    return {
-      accessToken
-    };
+  /**
+   * check user credentials then construct the payload and sign a token to return
+   * @param credentials - user email and password
+   */
+  public async login(credentials: UserCredentials): Promise<JwtToken> {
+    const validUser = await this.validateUserCredentials(credentials);
+    if (validUser) {
+      const accessToken = this.jwtService.sign({ email: credentials.email });
+      return {
+        accessToken
+      };
+    }
   }
 
-  // used in other areas of auth module, NOT login
-  public async validateUser(payload: JwtPayload): Promise<any> {
-    // put some validation logic here
-    // for example query user by id/email/username
-    return {};
+  // used in auth guard / jwt strategy
+  // TODO: check for expiration
+  public async validateUserToken(payload: JwtPayload): Promise<any> {
+    const user: User = await this.usersService.retrieveOneByEmail(
+      payload.email
+    );
+    if (user) {
+      return { email: user.email };
+    }
+  }
+
+  public async validateUserCredentials(userCrd: UserCredentials): Promise<any> {
+    const user: User = await this.usersService.retrieveOneByEmailAndPassword(
+      userCrd.email,
+      userCrd.password
+    );
+    return user;
   }
 }

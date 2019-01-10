@@ -9,4 +9,17 @@ export class UsersService extends BaseEntityService<User> {
   constructor(protected readonly mapper: UsersMapper) {
     super();
   }
+
+  // TODO: validate email
+  public async retrieveOneByEmail(email: string): Promise<User> {
+    return this.mapper.retrieveOneByCriteria({ email });
+  }
+
+  // TODO: validate email
+  public async retrieveOneByEmailAndPassword(
+    email: string,
+    password: string
+  ): Promise<User> {
+    return this.mapper.retrieveOneByCriteria({ email, password });
+  }
 }
