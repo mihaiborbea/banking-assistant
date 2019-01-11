@@ -5,7 +5,7 @@ export class User extends Typegoose {
   @prop()
   public _id: Types.ObjectId;
 
-  @prop()
+  @prop({ unique: true })
   public email: string;
 
   @prop()
@@ -14,6 +14,6 @@ export class User extends Typegoose {
   @prop()
   public lastName: string;
 
-  @prop()
+  @prop({ minlength: 8 })
   public password: string;
 }
