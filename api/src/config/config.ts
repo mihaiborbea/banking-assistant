@@ -30,9 +30,7 @@ const Config: IConfig = {
   auth: {
     secretOrPrivateKey: process.env.JWT_SECRET || 'secretKey',
     signOptions: {
-      expiresIn: process.env.JWT_DURATION
-        ? parseInt(process.env.JWT_DURATION, 10)
-        : 60 * 60 * 3600
+      expiresIn: process.env.JWT_DURATION ? process.env.JWT_DURATION : '48h'
     }
   },
   debug: true,

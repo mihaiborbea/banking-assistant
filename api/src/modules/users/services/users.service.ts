@@ -14,12 +14,4 @@ export class UsersService extends BaseEntityService<User> {
   public async retrieveOneByEmail(email: string): Promise<User> {
     return this.mapper.retrieveOneByCriteria({ email });
   }
-
-  // TODO: validate email
-  public async retrieveOneByEmailAndPassword(
-    email: string,
-    password: string
-  ): Promise<User> {
-    return this.mapper.retrieveOneByCriteria({ email, password });
-  }
 }

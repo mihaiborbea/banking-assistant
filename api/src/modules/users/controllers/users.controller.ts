@@ -8,11 +8,13 @@ import {
   Post,
   Put,
   Res,
-  UseGuards
+  UseGuards,
+  UsePipes
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 
+import { HashPasswordPipe } from '../services';
 import { UsersService } from '../services/users.service';
 
 @Controller('users')
@@ -20,7 +22,7 @@ export class UsersController {
   constructor(protected service: UsersService) {}
 
   @Post()
-  @UseGuards(AuthGuard())
+  @UsePipes(new HashPasswordPipe())
   public async create(@Body() input: any, @Res() res: Response): Promise<void> {
     try {
       const user = await this.service.create(input);
