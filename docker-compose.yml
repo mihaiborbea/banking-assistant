@@ -20,7 +20,7 @@ services:
       - MONGODB_USERNAME=root
       - MONGODB_PASSWORD=
       - JWT_SECRET=secretKey
-      - JWT_DURATION=12960000
+      - JWT_DURATION=24h
     dns: 8.8.8.8
 
   mongo:
