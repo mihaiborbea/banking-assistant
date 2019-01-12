@@ -1,7 +1,7 @@
 import { prop, Typegoose } from 'typegoose';
 
 export class Merchant extends Typegoose {
-  @prop()
+  @prop({ unique: true })
   public name: string;
 
   @prop()
