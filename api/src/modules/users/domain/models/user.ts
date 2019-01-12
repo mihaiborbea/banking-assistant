@@ -1,10 +1,13 @@
 import { Types } from 'mongoose';
 import { prop, Typegoose } from 'typegoose';
 
+import { Account, Product, Transaction } from '.';
+
 export class User extends Typegoose {
   @prop()
   public _id: Types.ObjectId;
 
+  /* Profile { */
   @prop({ unique: true })
   public email: string;
 
@@ -16,4 +19,14 @@ export class User extends Typegoose {
 
   @prop({ minlength: 8 })
   public password: string;
+  /* }  */
+
+  @prop()
+  public products: Product[];
+
+  @prop()
+  public accounts: Account[];
+
+  @prop()
+  public transactions: Transaction[];
 }
