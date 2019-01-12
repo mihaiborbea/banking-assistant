@@ -1,16 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  Res,
-  UseGuards,
-  UsePipes
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards, UsePipes } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 
@@ -27,36 +15,30 @@ export class UsersController {
     try {
       const user = await this.service.create(input);
       res.status(HttpStatus.CREATED).json(user);
-    } catch {
-      res.status(HttpStatus.BAD_REQUEST).send();
+    } catch (e) {
+      res.status(HttpStatus.BAD_REQUEST).send(e);
     }
   }
 
   @Get(':id')
   @UseGuards(AuthGuard())
-  public async findOne(
-    @Param('id') id: string,
-    @Res() res: Response
-  ): Promise<void> {
+  public async findOne(@Param('id') id: string, @Res() res: Response): Promise<void> {
     try {
       const user = await this.service.retrieveOne(id);
       res.status(HttpStatus.OK).json(user);
-    } catch {
-      res.status(HttpStatus.BAD_REQUEST).send([]);
+    } catch (e) {
+      res.status(HttpStatus.BAD_REQUEST).send(e);
     }
   }
 
   @Get()
   @UseGuards(AuthGuard())
-  public async findAll(
-    @Param() critera: any,
-    @Res() res: Response
-  ): Promise<void> {
+  public async findAll(@Param() critera: any, @Res() res: Response): Promise<void> {
     try {
       const users = await this.service.retrieve(critera);
       res.status(HttpStatus.OK).json(users);
-    } catch {
-      res.status(HttpStatus.BAD_REQUEST).send([]);
+    } catch (e) {
+      res.status(HttpStatus.BAD_REQUEST).send(e);
     }
   }
 
@@ -73,10 +55,7 @@ export class UsersController {
 
   @Delete(':id')
   @UseGuards(AuthGuard())
-  public async delete(
-    @Param('id') id: string,
-    @Res() res: Response
-  ): Promise<void> {
+  public async delete(@Param('id') id: string, @Res() res: Response): Promise<void> {
     try {
       const deleted = await this.service.delete(id);
       res.status(HttpStatus.OK).json({ deleted });

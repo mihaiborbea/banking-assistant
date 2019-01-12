@@ -29,7 +29,7 @@ export class AuthService {
     const user: User = await this.usersService.retrieveOneByEmail(payload.email);
     const isTokenExpired: boolean = payload.exp > Date.now();
     if (user && !isTokenExpired) {
-      return { email: user.email };
+      return { _id: user._id, email: user.email };
     }
   }
 
