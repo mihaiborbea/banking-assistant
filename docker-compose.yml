@@ -23,6 +23,19 @@ services:
       - JWT_DURATION=24h
     dns: 8.8.8.8
 
+  client:
+    build: client
+    container_name: hera_client
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./client:/app
+    working_dir: /app
+    restart: always
+    environment:
+      - API_URL=http://0.0.0.0:4001/
+      - PORT=3001
+
   mongo:
     image: mongo
     container_name: hera_mongo
