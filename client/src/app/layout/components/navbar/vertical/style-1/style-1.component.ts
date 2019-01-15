@@ -60,26 +60,6 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
                 this._fusePerfectScrollbar.update();
             }, 310);
         });
-
-        // Scroll to the active item position
-        this._router.events
-            .pipe(
-                filter((event) => event instanceof NavigationEnd),
-                take(1)
-            )
-            .subscribe(() => {
-                setTimeout(() => {
-                    const activeNavItem: any = document.querySelector('navbar .nav-link.active');
-
-                    if (activeNavItem) {
-                        const activeItemOffsetTop = activeNavItem.offsetTop,
-                            activeItemOffsetParentTop = activeNavItem.offsetParent.offsetTop,
-                            scrollDistance = activeItemOffsetTop - activeItemOffsetParentTop - 48 * 3 - 168;
-
-                        this._fusePerfectScrollbar.scrollToTop(scrollDistance);
-                    }
-                });
-            });
     }
 
     // -----------------------------------------------------------------------------------------------------

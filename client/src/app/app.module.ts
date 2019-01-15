@@ -21,12 +21,24 @@ import { LayoutModule } from 'app/layout/layout.module';
 
 const appRoutes: Routes = [
     {
-        path: 'apps',
-        loadChildren: './main/apps/apps.module#AppsModule'
+        path: 'auth',
+        loadChildren: './auth/auth.module#AuthModule'
     },
     {
-        path: 'pages',
-        loadChildren: './main/pages/pages.module#PagesModule'
+        path: 'profile',
+        loadChildren: './profile/profile.module#ProfileModule'
+    },
+    {
+        path: 'dashboards',
+        loadChildren: './dashboards/dashboards.module#DashboardsModule'
+    },
+    {
+        path: 'chat',
+        loadChildren: './chat/chat.module#ChatModule'
+    },
+    {
+        path: 'error',
+        loadChildren: './error/error.module#ErrorModule'
     },
     {
         path: '**',
