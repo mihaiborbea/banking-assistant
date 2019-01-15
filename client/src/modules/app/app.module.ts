@@ -13,11 +13,11 @@ import { FuseModule } from '@fuse/fuse.module';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseProgressBarModule, FuseSidebarModule } from '@fuse/components';
 
-import { fuseConfig } from 'app/fuse-config';
+import { fuseConfig } from '../fuse-config/';
 
-import { FakeDbService } from 'app/fake-db/fake-db.service';
-import { AppComponent } from 'app/app.component';
-import { LayoutModule } from 'app/layout/layout.module';
+import { FakeDbService } from '../fake-db/fake-db.service';
+import { AppComponent } from '../app/app.component';
+import { LayoutModule } from '../layout/layout.module';
 
 const appRoutes: Routes = [
     {
