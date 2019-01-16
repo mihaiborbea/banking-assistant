@@ -1,10 +1,15 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './modules/app/app.module';
+
+import * as cors from 'cors';
 
 import Config from './config/config';
+import { AppModule } from './modules/app/app.module';
 
+// tslint:disable-next-line:typedef
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  // TODO: enable only on dev
+  app.use(cors());
   await app.listen(Config.port);
 }
 bootstrap();
