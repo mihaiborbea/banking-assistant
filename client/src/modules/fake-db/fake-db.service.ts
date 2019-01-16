@@ -1,10 +1,10 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
-import { ProjectDashboardDb } from 'app/fake-db/dashboard-project';
-import { AnalyticsDashboardDb } from 'app/fake-db/dashboard-analytics';
-import { ChatFakeDb } from 'app/fake-db/chat';
-import { ProfileFakeDb } from 'app/fake-db/profile';
-import { IconsFakeDb } from 'app/fake-db/icons';
+import { ProjectDashboardDb } from './dashboard-project';
+import { AnalyticsDashboardDb } from './dashboard-analytics';
+import { ChatFakeDb } from './chat';
+import { ProfileFakeDb } from './profile';
+import { IconsFakeDb } from './icons';
 
 export class FakeDbService implements InMemoryDbService {
     createDb(): any {

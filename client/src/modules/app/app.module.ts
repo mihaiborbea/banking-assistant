@@ -18,31 +18,36 @@ import { fuseConfig } from '../fuse-config/';
 import { FakeDbService } from '../fake-db/fake-db.service';
 import { AppComponent } from '../app/app.component';
 import { LayoutModule } from '../layout/layout.module';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from 'modules/auth/auth.guard';
+import { LoggedGuard } from 'modules/auth/logged.guard';
 
 const appRoutes: Routes = [
     {
         path: 'auth',
-        loadChildren: './auth/auth.module#AuthModule'
+        canActivate: [LoggedGuard],
+        loadChildren: '../auth/auth.module#AuthModule'
     },
     {
         path: 'profile',
-        loadChildren: './profile/profile.module#ProfileModule'
+        canActivate: [AuthGuard],
+        loadChildren: '../profile/profile.module#ProfileModule'
     },
     {
         path: 'dashboards',
-        loadChildren: './dashboards/dashboards.module#DashboardsModule'
+        loadChildren: '../dashboards/dashboards.module#DashboardsModule'
     },
     {
         path: 'chat',
-        loadChildren: './chat/chat.module#ChatModule'
+        loadChildren: '../chat/chat.module#ChatModule'
     },
     {
         path: 'error',
-        loadChildren: './error/error.module#ErrorModule'
+        loadChildren: '../error/error.module#ErrorModule'
     },
     {
         path: '**',
-        redirectTo: 'apps/dashboards/analytics'
+        redirectTo: '/dashboards/analytics'
     }
 ];
 
@@ -53,6 +58,15 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => localStorage.getItem('TOKEN'),
+                whitelistedDomains: ['localhost:4001'],
+                headerName: 'Authorization',
+                authScheme: 'Bearer '
+                // blacklistedRoutes: ['localhost:4001/auth']
+            }
+        }),
 
         TranslateModule.forRoot(),
         InMemoryWebApiModule.forRoot(FakeDbService, {
