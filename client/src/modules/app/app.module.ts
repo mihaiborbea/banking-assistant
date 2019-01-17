@@ -21,6 +21,8 @@ import { LayoutModule } from '../layout/layout.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from 'modules/auth/auth.guard';
 import { LoggedGuard } from 'modules/auth/logged.guard';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../../environments/environment';
 
 const appRoutes: Routes = [
     {
@@ -64,6 +66,7 @@ const appRoutes: Routes = [
             delay: 0,
             passThruUnknownUrl: true
         }),
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
 
         // Material moment date module
         MatMomentDateModule,
