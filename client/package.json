@@ -28,6 +28,7 @@
         "@angular/material-moment-adapter": "6.3.3",
         "@angular/platform-browser": "6.0.9",
         "@angular/platform-browser-dynamic": "6.0.9",
+        "@angular/pwa": "0.12.2",
         "@angular/router": "6.0.9",
         "@auth0/angular-jwt": "2.1.0",
         "@ngrx/effects": "6.0.1",

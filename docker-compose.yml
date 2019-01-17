@@ -33,7 +33,7 @@ services:
     working_dir: /app
     restart: always
     environment:
-      - API_URL=http://0.0.0.0:4001/
+      - API_URL=http://0.0.0.0:4001
       - PORT=3001
 
   mongo:

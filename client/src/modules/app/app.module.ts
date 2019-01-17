@@ -58,15 +58,6 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: () => localStorage.getItem('TOKEN'),
-                whitelistedDomains: ['localhost:4001'],
-                headerName: 'Authorization',
-                authScheme: 'Bearer '
-                // blacklistedRoutes: ['localhost:4001/auth']
-            }
-        }),
 
         TranslateModule.forRoot(),
         InMemoryWebApiModule.forRoot(FakeDbService, {
