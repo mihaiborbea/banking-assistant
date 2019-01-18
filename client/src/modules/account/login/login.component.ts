@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 
-import { AuthService } from '../auth.service';
-import { map } from 'rxjs/operators';
+import { AuthService } from 'modules/auth/auth.service';
 
 @Component({
     selector: 'login',
@@ -15,7 +13,7 @@ import { map } from 'rxjs/operators';
     animations: fuseAnimations
 })
 export class LoginComponent implements OnInit {
-    loginForm: FormGroup;
+    public loginForm: FormGroup;
 
     /**
      * Constructor
@@ -42,15 +40,7 @@ export class LoginComponent implements OnInit {
             }
         };
     }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.loginForm = this._formBuilder.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]

@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AuthModule } from './auth.module';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { UserCredentials } from './domain/interfaces';
 import { environment } from 'environments/environment';
-
+import { AuthModule } from './auth.module';
 import { StorageService } from './storage.service';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: AuthModule
 })
 export class AuthService {
     private readonly endpoint: string = environment.apiUrl + '/auth/login';

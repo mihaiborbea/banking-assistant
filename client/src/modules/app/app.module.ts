@@ -18,41 +18,47 @@ import { fuseConfig } from '../fuse-config/';
 import { FakeDbService } from '../fake-db/fake-db.service';
 import { AppComponent } from '../app/app.component';
 import { LayoutModule } from '../layout/layout.module';
-import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from 'modules/auth/auth.guard';
-import { LoggedGuard } from 'modules/auth/logged.guard';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../../environments/environment';
+import { AuthModule } from 'modules/auth/auth.module';
+import { JwtModule } from '@auth0/angular-jwt';
 
 const appRoutes: Routes = [
     {
-        path: 'auth',
-        canActivate: [LoggedGuard],
-        loadChildren: '../auth/auth.module#AuthModule'
+        path: 'account',
+        loadChildren: '../account/account.module#AccountModule'
     },
     {
         path: 'profile',
-        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
         loadChildren: '../profile/profile.module#ProfileModule'
     },
     {
         path: 'dashboards',
+        canLoad: [AuthGuard],
         loadChildren: '../dashboards/dashboards.module#DashboardsModule'
     },
     {
         path: 'chat',
+        canLoad: [AuthGuard],
         loadChildren: '../chat/chat.module#ChatModule'
     },
     {
         path: 'error',
+        canLoad: [AuthGuard],
         loadChildren: '../error/error.module#ErrorModule'
     },
     {
-        path: '**',
+        path: '',
+        pathMatch: 'full',
         redirectTo: '/dashboards/analytics'
     }
 ];
 
+export function tokenGetter(): string {
+    return localStorage.getItem('TOKEN');
+}
 @NgModule({
     declarations: [AppComponent],
     imports: [
@@ -67,13 +73,18 @@ const appRoutes: Routes = [
             passThruUnknownUrl: true
         }),
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-
-        // Material moment date module
-        MatMomentDateModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                whitelistedDomains: ['example.com'],
+                blacklistedRoutes: ['example.com/examplebadroute/']
+            }
+        }),
 
         // Material
         MatButtonModule,
         MatIconModule,
+        MatMomentDateModule,
 
         // Fuse modules
         FuseModule.forRoot(fuseConfig),
@@ -82,7 +93,8 @@ const appRoutes: Routes = [
         FuseSidebarModule,
 
         // App modules
-        LayoutModule
+        LayoutModule,
+        AuthModule
     ],
     bootstrap: [AppComponent]
 })

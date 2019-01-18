@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthModule } from './auth.module';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: AuthModule
 })
 export class StorageService {
     private readonly storage = window.localStorage;
