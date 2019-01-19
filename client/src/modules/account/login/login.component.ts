@@ -15,12 +15,6 @@ import { AuthService } from 'modules/auth/auth.service';
 export class LoginComponent implements OnInit {
     public loginForm: FormGroup;
 
-    /**
-     * Constructor
-     *
-     * @param {FuseConfigService} _fuseConfigService
-     * @param {FormBuilder} _formBuilder
-     */
     constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder, private readonly _authService: AuthService) {
         // Configure the layout
         this._fuseConfigService.config = {

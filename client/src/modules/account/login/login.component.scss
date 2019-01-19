@@ -1,7 +1,6 @@
-@import "src/@fuse/scss/fuse";
+@import 'src/@fuse/scss/fuse';
 
 :host {
-
     #login {
         width: 100%;
         overflow: hidden;
@@ -39,7 +38,7 @@
             width: 400px;
             min-width: 400px;
             max-width: 400px;
-            background: #FFFFFF;
+            background: #ffffff;
             overflow: auto;
             -webkit-overflow-scrolling: touch;
 
@@ -73,9 +72,8 @@
                     font-weight: 500;
                     text-align: center;
                     margin: 32px auto;
-                    color: #FFFFFF;
+                    color: #ffffff;
                     border-radius: 2px;
-                    background: mat-color($accent);
                 }
 
                 .title {
@@ -107,13 +105,13 @@
                         margin-top: 8px;
 
                         .remember-me {
-                            margin-bottom: 16px
+                            margin-bottom: 16px;
                         }
 
                         .forgot-password {
                             font-size: 13px;
                             font-weight: 500;
-                            margin-bottom: 16px
+                            margin-bottom: 16px;
                         }
                     }
 
@@ -144,7 +142,8 @@
                         padding: 0 8px;
                         z-index: 9999;
 
-                        &:before, &:after {
+                        &:before,
+                        &:after {
                             content: '';
                             display: block;
                             width: 30px;
@@ -164,12 +163,11 @@
                 }
 
                 button {
-
                     &.google,
                     &.facebook {
                         width: 70%;
                         text-transform: none;
-                        color: #FFFFFF;
+                        color: #ffffff;
                         font-size: 13px;
 
                         @include media-breakpoint('xs') {
@@ -177,13 +175,13 @@
                         }
 
                         mat-icon {
-                            color: #FFFFFF;
+                            color: #ffffff;
                             margin: 0 8px 0 0;
                         }
                     }
 
                     &.google {
-                        background-color: #D73D32;
+                        background-color: #d73d32;
                         margin-bottom: 8px;
                     }
 
@@ -202,7 +200,6 @@
                     }
 
                     .link {
-
                     }
                 }
             }
