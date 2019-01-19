@@ -8,16 +8,13 @@ export class User extends Typegoose {
   public _id: Types.ObjectId;
 
   /* Profile { */
-  @prop({ unique: true })
+  @prop({ unique: true, required: true })
   public email: string;
 
-  @prop()
-  public firstName: string;
+  @prop({ required: true })
+  public name: string;
 
-  @prop()
-  public lastName: string;
-
-  @prop({ minlength: 8 })
+  @prop({ minlength: 8, required: true })
   public password: string;
   /* }  */
 

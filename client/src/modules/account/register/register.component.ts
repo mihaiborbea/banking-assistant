@@ -2,9 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
+import { AuthService } from 'modules/auth/auth.service';
 
 @Component({
     selector: 'register',
@@ -13,12 +15,16 @@ import { fuseAnimations } from '@fuse/animations';
     animations: fuseAnimations
 })
 export class RegisterComponent implements OnInit, OnDestroy {
-    registerForm: FormGroup;
+    public registerForm: FormGroup;
 
-    // Private
     private _unsubscribeAll: Subject<any>;
 
-    constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder) {
+    constructor(
+        private readonly _fuseConfigService: FuseConfigService,
+        private readonly _formBuilder: FormBuilder,
+        private readonly _router: Router,
+        private readonly _authService: AuthService
+    ) {
         // Configure the layout
         this._fuseConfigService.config = {
             layout: {
@@ -36,19 +42,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 }
             }
         };
-
-        // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.registerForm = this._formBuilder.group({
             name: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
@@ -66,22 +63,19 @@ export class RegisterComponent implements OnInit, OnDestroy {
             });
     }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
+    public ngOnDestroy(): void {
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
+
+    public async submit(): Promise<void> {
+        const registered = await this._authService.register(this.registerForm.value);
+        if (registered) {
+            this._router.navigate(['dashboards', 'analytics']);
+        }
+    }
 }
 
-/**
- * Confirm password validator
- *
- * @param {AbstractControl} control
- * @returns {ValidationErrors | null}
- */
 export const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     if (!control.parent || !control) {
         return null;

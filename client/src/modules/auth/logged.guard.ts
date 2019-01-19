@@ -12,7 +12,7 @@ export class LoggedGuard implements CanActivate, CanLoad {
 
     canActivate(): boolean {
         if (this.auth.isAuthenticated()) {
-            this._router.navigate(['logged']);
+            this._router.navigate(['dashboards', 'analytics']);
             return false;
         }
         return true;

@@ -12,7 +12,8 @@ import { StorageService } from './storage.service';
     providedIn: AuthModule
 })
 export class AuthService {
-    private readonly endpoint: string = environment.apiUrl + '/auth/login';
+    private readonly loginEndpoint: string = environment.apiUrl + '/auth/login';
+    private readonly registerEndpoint: string = environment.apiUrl + '/users';
 
     constructor(private readonly _http: HttpClient, private readonly _storageService: StorageService, private _jwtHelper: JwtHelperService) {}
 
@@ -20,6 +21,14 @@ export class AuthService {
         const token = await this.auth(credentials);
         if (token) {
             this._storageService.setToken(token);
+            return true;
+        }
+        return false;
+    }
+
+    public async register(credentials: UserCredentials): Promise<boolean> {
+        const createdUser = await this._http.post(this.registerEndpoint, credentials).toPromise();
+        if (createdUser) {
             return true;
         }
         return false;
@@ -35,7 +44,7 @@ export class AuthService {
 
     private async auth(credentials: UserCredentials): Promise<any> {
         return this._http
-            .post(this.endpoint, credentials)
+            .post(this.loginEndpoint, credentials)
             .pipe(map((res) => res['accessToken']))
             .toPromise();
     }
