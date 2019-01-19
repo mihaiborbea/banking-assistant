@@ -26,6 +26,10 @@ export class AuthService {
         return false;
     }
 
+    public logout(): void {
+        this._storageService.deleteToken();
+    }
+
     public async register(credentials: UserCredentials): Promise<boolean> {
         const createdUser = await this._http.post(this.registerEndpoint, credentials).toPromise();
         if (createdUser) {
