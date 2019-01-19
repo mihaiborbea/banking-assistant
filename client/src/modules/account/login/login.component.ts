@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
@@ -15,7 +16,12 @@ import { AuthService } from 'modules/auth/auth.service';
 export class LoginComponent implements OnInit {
     public loginForm: FormGroup;
 
-    constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder, private readonly _authService: AuthService) {
+    constructor(
+        private readonly _fuseConfigService: FuseConfigService,
+        private readonly _formBuilder: FormBuilder,
+        private readonly _router: Router,
+        private readonly _authService: AuthService
+    ) {
         // Configure the layout
         this._fuseConfigService.config = {
             layout: {
@@ -44,7 +50,7 @@ export class LoginComponent implements OnInit {
     public async submit(): Promise<void> {
         const logged = await this._authService.login(this.loginForm.value);
         if (logged) {
-            window.location.reload();
+            this._router.navigate(['dashboards', 'analytics']);
         }
     }
 }
