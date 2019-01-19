@@ -10,6 +10,10 @@ const routes = [
     {
         path: '500',
         loadChildren: './500/error-500.module#Error500Module'
+    },
+    {
+        path: '**',
+        redirectTo: '404'
     }
 ];
 

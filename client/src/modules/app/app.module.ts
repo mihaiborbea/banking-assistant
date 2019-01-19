@@ -46,13 +46,16 @@ const appRoutes: Routes = [
     },
     {
         path: 'error',
-        canLoad: [AuthGuard],
         loadChildren: '../error/error.module#ErrorModule'
     },
     {
         path: '',
         pathMatch: 'full',
         redirectTo: '/dashboards/analytics'
+    },
+    {
+        path: '**',
+        redirectTo: 'error/404'
     }
 ];
 
