@@ -16,4 +16,8 @@ export class StorageService {
     public getToken(): string {
         return this.storage.getItem('TOKEN');
     }
+
+    public deleteToken(): void {
+        this.storage.removeItem('TOKEN');
+    }
 }

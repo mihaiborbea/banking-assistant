@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
-import * as _ from 'lodash';
+import { Router } from '@angular/router';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'modules/navigation/navigation';
+import { AuthService } from 'modules/auth/auth.service';
 
 @Component({
     selector: 'toolbar',
@@ -18,21 +18,17 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     horizontalNavbar: boolean;
     rightNavbar: boolean;
     hiddenNavbar: boolean;
-    languages: any;
     navigation: any;
-    selectedLanguage: any;
     userStatusOptions: any[];
 
-    // Private
     private _unsubscribeAll: Subject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {FuseConfigService} _fuseConfigService
-     * @param {FuseSidebarService} _fuseSidebarService
-     */
-    constructor(private _fuseConfigService: FuseConfigService, private _fuseSidebarService: FuseSidebarService) {
+    constructor(
+        private _fuseConfigService: FuseConfigService,
+        private _fuseSidebarService: FuseSidebarService,
+        private readonly _authService: AuthService,
+        private readonly _router: Router
+    ) {
         // Set the defaults
         this.userStatusOptions = [
             {
@@ -61,21 +57,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
                 color: '#616161'
             }
         ];
-
         this.navigation = navigation;
-
-        // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         // Subscribe to the config changes
         this._fuseConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe((settings) => {
             this.horizontalNavbar = settings.layout.navbar.position === 'top';
@@ -84,25 +70,18 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         });
     }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Toggle sidebar open
-     *
-     * @param key
-     */
-    toggleSidebarOpen(key): void {
+    public toggleSidebarOpen(key): void {
         this._fuseSidebarService.getSidebar(key).toggleOpen();
+    }
+
+    public logout(): void {
+        this._authService.logout();
+        this._router.navigate(['']);
     }
 }
