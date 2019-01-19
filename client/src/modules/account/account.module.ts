@@ -13,6 +13,14 @@ const AccountRoutes: Routes = [
         path: 'register',
         canLoad: [LoggedGuard],
         loadChildren: './register/register.module#RegisterModule'
+    },
+    {
+        path: 'error',
+        loadChildren: '../error/error.module#ErrorModule'
+    },
+    {
+        path: '**',
+        redirectTo: 'error/404'
     }
 ];
 
