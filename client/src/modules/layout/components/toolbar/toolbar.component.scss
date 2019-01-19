@@ -23,6 +23,12 @@
         .logo-icon {
             width: 38px;
         }
+
+        span {
+            color: mat-color($accent);
+            font-weight: 400;
+            font-size: 15pt;
+        }
     }
 
     .user-button,
