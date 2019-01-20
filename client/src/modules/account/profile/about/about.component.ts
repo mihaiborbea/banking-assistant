@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 
-import { ProfileService } from '../../profile.service';
+import { ProfileService } from '../profile.service';
 
 @Component({
     selector: 'profile-about',
@@ -13,39 +13,20 @@ import { ProfileService } from '../../profile.service';
     animations: fuseAnimations
 })
 export class ProfileAboutComponent implements OnInit, OnDestroy {
-    about: any;
-
-    // Private
+    public about: any;
     private _unsubscribeAll: Subject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {ProfileService} _profileService
-     */
     constructor(private _profileService: ProfileService) {
-        // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this._profileService.aboutOnChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe((about) => {
             this.about = about;
         });
     }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
+    public ngOnDestroy(): void {
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }

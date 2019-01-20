@@ -1,16 +1,13 @@
-@import "src/@fuse/scss/fuse";
+@import 'src/@fuse/scss/fuse';
 
 :host {
-
     #about {
-        max-width: 1200px;
+        align-items: center;
+        justify-content: center;
 
         .about-content {
-
             .general {
-
                 .location {
-
                     mat-icon {
                         line-height: 13px !important;
                     }
@@ -18,9 +15,7 @@
             }
 
             .work {
-
                 .job {
-
                     .company {
                         padding: 0 16px 0 0;
                         font-weight: 500;
@@ -32,62 +27,13 @@
                 }
             }
         }
-
-        .about-sidebar {
-            padding-left: 32px;
-
-            @include media-breakpoint('sm') {
-                padding: 8px
-            }
-
-            .friends {
-
-                .content {
-
-                    .friend {
-                        padding: 4px;
-                    }
-                }
-            }
-
-            .groups {
-
-                .content {
-
-                    .group {
-                        margin-bottom: 16px;
-
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
-
-                        .logo {
-                            border: 1px solid rgba(0, 0, 0, 0.12);
-                            margin-right: 16px;
-                        }
-
-                        .name {
-                            font-weight: 500;
-                            font-size: 15px;
-                        }
-
-                        .category,
-                        .members {
-                            color: rgba(0, 0, 0, 0.54);
-                        }
-
-                        .members {
-                            margin-top: 16px;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     // Profile boxes
     .profile-box {
         margin-bottom: 16px;
+        justify-content: start !important;
+        align-content: start !important;
         @include mat-elevation(2);
 
         header {
@@ -103,8 +49,10 @@
         }
 
         .content {
+            align-self: start;
+            justify-self: start;
             padding: 16px;
-            background-color: #FFF;
+            background-color: #fff;
         }
 
         footer {
@@ -114,7 +62,6 @@
         }
 
         &.info-box {
-
             .info-line {
                 margin-bottom: 24px;
 
@@ -125,7 +72,6 @@
                 }
 
                 .info {
-
                 }
 
                 &:last-child {
