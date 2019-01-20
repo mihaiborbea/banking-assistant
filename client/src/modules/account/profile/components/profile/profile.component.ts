@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { fuseAnimations } from '@fuse/animations';
 
@@ -10,8 +11,22 @@ import { fuseAnimations } from '@fuse/animations';
     animations: fuseAnimations
 })
 export class ProfileComponent {
-    /**
-     * Constructor
-     */
-    constructor() {}
+    public editMode = false;
+    constructor(private readonly _router: Router, private readonly _route: ActivatedRoute) {
+        this._route.queryParams.subscribe((params) => {
+            if (params.edit) {
+                this.editMode = true;
+                return;
+            }
+            this.editMode = false;
+        });
+    }
+
+    public editProfile(): void {
+        this._router.navigate(['account/profile'], { queryParams: { edit: true } });
+    }
+
+    public saveProfile(): void {
+        this._router.navigate(['account/profile']);
+    }
 }

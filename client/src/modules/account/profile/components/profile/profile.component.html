@@ -5,6 +5,14 @@
             <img class="profile-image avatar huge" src="assets/icons/avatar.png" [@animate]="{ value: '*', params: { delay: '50ms', scale: '0.2' } }" />
             <div class="name" [@animate]="{ value: '*', params: { delay: '100ms', x: '-25px' } }">Katherine Wilson</div>
         </div>
+        <div class="actions" fxLayout="row" fxLayoutAlign="end end" [@animate]="{ value: '*', params: { delay: '200ms' } }">
+            <button *ngIf="!editMode" mat-raised-button color="primary" aria-label="Edit profile" (click)="editProfile()">
+                <mat-icon>edit</mat-icon>Edit profile
+            </button>
+            <button *ngIf="editMode" mat-raised-button color="primary" aria-label="Update profile" (click)="saveProfile()">
+                <mat-icon>save</mat-icon>Update profile
+            </button>
+        </div>
     </div>
     <!-- / HEADER -->
 

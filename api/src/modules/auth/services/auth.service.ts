@@ -17,7 +17,7 @@ export class AuthService {
   public async login(credentials: UserCredentials): Promise<any> {
     const user = await this.validateUserCredentials(credentials);
     if (user) {
-      const accessToken = this.jwtService.sign({ email: credentials.email });
+      const accessToken = this.jwtService.sign({ _id: user._id, email: user.email, name: user.name });
       return {
         accessToken
       };
@@ -35,7 +35,8 @@ export class AuthService {
 
   public async validateUserCredentials(userCrd: UserCredentials): Promise<any> {
     const user: User = await this.usersService.retrieveOneByEmail(userCrd.email);
-    if (user && compare(userCrd.password, user.password)) {
+    const isPasswordValid: boolean = await compare(userCrd.password, user.password);
+    if (user && isPasswordValid) {
       return user;
     }
   }
