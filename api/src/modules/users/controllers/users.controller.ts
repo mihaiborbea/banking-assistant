@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards, UsePipes } from '@nestjs/common';
+// tslint:disable-next-line:max-line-length
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res, UseGuards, UsePipes } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 
@@ -42,10 +43,11 @@ export class UsersController {
     }
   }
 
-  @Put(':id')
+  @Patch(':id')
   @UseGuards(AuthGuard())
-  public async update(@Body() input: any, @Res() res: Response): Promise<void> {
+  public async update(@Param('id') id: string, @Body() input: any, @Res() res: Response): Promise<void> {
     try {
+      input._id = id;
       const user = await this.service.update(input);
       res.status(HttpStatus.OK).json(user);
     } catch (e) {

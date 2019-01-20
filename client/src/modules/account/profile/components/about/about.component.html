@@ -1,0 +1,128 @@
+<div id="about" class="p-24" fxLayout="row wrap">
+    <div *ngIf="!editMode" class="about-content" fxLayout="column" fxFlex.gt-sm="50" fxFlex.gt-md="50">
+        <div class="profile-box info-box contact" fxLayout="column">
+            <header class="mat-accent-bg"><div class="title">Contact</div></header>
+
+            <div class="content">
+                <div class="info-line">
+                    <div class="title">Tel.</div>
+                    <div class="info">
+                        <span>{{ profile.phone }}</span>
+                    </div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Email</div>
+                    <div class="info">
+                        <span>{{ profile.email }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-box info-box work" fxLayout="column">
+            <header class="mat-accent-bg"><div class="title">Work</div></header>
+
+            <div class="content">
+                <div class="info-line">
+                    <div class="title">Occupation</div>
+                    <div class="info">{{ profile.occupation }}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Skills</div>
+                    <div class="info">{{ profile.skills }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-box info-box general" fxLayout="column">
+            <header class="mat-accent-bg"><div class="title">Personal</div></header>
+
+            <div class="content">
+                <div class="info-line">
+                    <div class="title">Gender</div>
+                    <div class="info">{{ profile.gender }}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Birthday</div>
+                    <div class="info">{{ profile.birthdate | date: 'longDate' }}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Location</div>
+                    <div class="info location" fxLayout="row" fxLayoutAlign="start center">
+                        <span>{{ profile.fullLocation }}</span>
+                        <mat-icon class="s-16 ml-4">location_on</mat-icon>
+                    </div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">About Me</div>
+                    <div class="info">{{ profile.about }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form *ngIf="editMode" [formGroup]="profileForm" class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="65">
+        <div class="profile-box info-box contact" fxLayout="column">
+            <header class="mat-accent-bg"><div class="title">Contact</div></header>
+
+            <div class="content">
+                <div class="info-line">
+                    <mat-form-field> <input matInput formControlName="phone" placeholder="Phone" /> </mat-form-field>
+                </div>
+                <div class="info-line">
+                    <mat-form-field> <input matInput formControlName="email" placeholder="Email" /> </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-box info-box work" fxLayout="column">
+            <header class="mat-accent-bg"><div class="title">Work</div></header>
+
+            <div class="content">
+                <div class="info-line">
+                    <mat-form-field> <input matInput formControlName="occupation" placeholder="Occupation" /> </mat-form-field>
+                </div>
+
+                <div class="info-line">
+                    <mat-form-field> <input matInput formControlName="skills" placeholder="Skills" /> </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-box info-box general" fxLayout="column">
+            <header class="mat-accent-bg"><div class="title">Personal</div></header>
+
+            <div class="content">
+                <div class="info-line">
+                    <mat-radio-group formControlName="gender">
+                        <mat-radio-button value="Man"> Man </mat-radio-button>
+                        <mat-radio-button value="Woman"> Woman </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="info-line">
+                    <mat-form-field>
+                        <mat-label>Birthdate</mat-label>
+                        <input matInput formControlName="birthdate" [matDatepicker]="picker" />
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="info-line" formGroupName="location">
+                    <div class="title">Location</div>
+                    <mat-form-field> <input matInput formControlName="country" placeholder="Country" /> </mat-form-field>
+                    <mat-form-field> <input matInput formControlName="city" placeholder="City" /> </mat-form-field>
+                    <mat-form-field> <input matInput formControlName="postalCode" placeholder="Postal Code" /> </mat-form-field>
+                </div>
+
+                <div class="info-line">
+                    <mat-form-field> <input matInput formControlName="about" placeholder="About" /> </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

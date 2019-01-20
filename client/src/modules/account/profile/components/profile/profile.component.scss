@@ -1,11 +1,10 @@
-@import "src/@fuse/scss/fuse";
+@import 'src/@fuse/scss/fuse';
 
 #profile {
-
     .header {
-        height: 320px;
-        min-height: 320px;
-        max-height: 320px;
+        height: 230px;
+        min-height: 230px;
+        max-height: 230px;
         background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat 0 45%;
         background-size: cover;
 
@@ -19,7 +18,7 @@
 
         .name {
             font-size: 34px;
-            color: #FFFFFF;
+            color: #ffffff;
 
             @include media-breakpoint('sm') {
                 margin-bottom: 32px;
@@ -27,19 +26,20 @@
         }
 
         .actions {
-
             button {
                 text-transform: none;
-                padding: 0 16px;
                 height: 32px;
                 line-height: 32px;
-                margin: 0 0 0 8px;
+                .mat-icon {
+                    margin-right: 5px;
+                }
             }
         }
     }
 
     .content {
         flex: 1;
+        width: 100%;
 
         mat-tab-group {
             height: 100%;

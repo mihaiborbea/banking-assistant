@@ -30,11 +30,6 @@ const appRoutes: Routes = [
         loadChildren: '../account/account.module#AccountModule'
     },
     {
-        path: 'profile',
-        canLoad: [AuthGuard],
-        loadChildren: '../profile/profile.module#ProfileModule'
-    },
-    {
         path: 'dashboards',
         canLoad: [AuthGuard],
         loadChildren: '../dashboards/dashboards.module#DashboardsModule'
@@ -79,8 +74,8 @@ export function tokenGetter(): string {
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
-                whitelistedDomains: ['example.com'],
-                blacklistedRoutes: ['example.com/examplebadroute/']
+                whitelistedDomains: ['0.0.0.0:4001'],
+                blacklistedRoutes: ['0.0.0.0:4001/auth']
             }
         }),
 

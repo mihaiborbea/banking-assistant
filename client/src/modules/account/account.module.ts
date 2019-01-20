@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoggedGuard } from 'modules/auth/logged.guard';
+import { AuthGuard } from 'modules/auth/auth.guard';
 
 const AccountRoutes: Routes = [
     {
@@ -13,6 +14,11 @@ const AccountRoutes: Routes = [
         path: 'register',
         canLoad: [LoggedGuard],
         loadChildren: './register/register.module#RegisterModule'
+    },
+    {
+        path: 'profile',
+        canLoad: [AuthGuard],
+        loadChildren: './profile/profile.module#ProfileModule'
     },
     {
         path: 'error',
