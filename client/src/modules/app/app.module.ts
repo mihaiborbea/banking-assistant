@@ -30,11 +30,6 @@ const appRoutes: Routes = [
         loadChildren: '../account/account.module#AccountModule'
     },
     {
-        path: 'profile',
-        canLoad: [AuthGuard],
-        loadChildren: '../profile/profile.module#ProfileModule'
-    },
-    {
         path: 'dashboards',
         canLoad: [AuthGuard],
         loadChildren: '../dashboards/dashboards.module#DashboardsModule'
