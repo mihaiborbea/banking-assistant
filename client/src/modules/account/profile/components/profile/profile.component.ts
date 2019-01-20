@@ -1,8 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 import { fuseAnimations } from '@fuse/animations';
 import { ProfileService } from '../../profile.service';
+import { User } from '../../domain';
 
 @Component({
     selector: 'profile',
@@ -11,9 +13,11 @@ import { ProfileService } from '../../profile.service';
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnDestroy {
     public editMode = false;
-    public userData: any;
+    public userData: User;
+
+    private _unsubscribeAll: Subject<any>;
 
     constructor(private readonly _router: Router, private readonly _route: ActivatedRoute, private readonly _profileService: ProfileService) {
         this._route.queryParams.subscribe((params) => {
@@ -26,6 +30,12 @@ export class ProfileComponent {
         this._profileService.userChanged.subscribe((data) => {
             this.userData = data;
         });
+        this._unsubscribeAll = new Subject();
+    }
+
+    public ngOnDestroy(): void {
+        this._unsubscribeAll.next();
+        this._unsubscribeAll.complete();
     }
 
     public editProfile(): void {

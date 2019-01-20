@@ -1,10 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { fuseAnimations } from '@fuse/animations';
 
-import { ProfileService } from '../../profile.service';
+import { User } from '../../domain';
 
 @Component({
     selector: 'profile-about',
@@ -12,22 +10,13 @@ import { ProfileService } from '../../profile.service';
     styleUrls: ['./about.component.scss'],
     animations: fuseAnimations
 })
-export class ProfileAboutComponent implements OnInit, OnDestroy {
-    public about: any;
-    private _unsubscribeAll: Subject<any>;
+export class ProfileAboutComponent implements OnInit {
+    @Input()
+    public profile: User;
+    @Input()
+    public editMode: boolean;
 
-    constructor(private _profileService: ProfileService) {
-        this._unsubscribeAll = new Subject();
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-        this._profileService.userChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe((about) => {
-            this.about = about;
-        });
-    }
-
-    public ngOnDestroy(): void {
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
-    }
+    public ngOnInit(): void {}
 }
