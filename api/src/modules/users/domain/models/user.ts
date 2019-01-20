@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 import { prop, Typegoose } from 'typegoose';
 
-import { Account, Product, Transaction } from '.';
+import { Account, Location, Product, Transaction } from '.';
 
 export class User extends Typegoose {
   @prop()
@@ -13,6 +13,30 @@ export class User extends Typegoose {
 
   @prop({ required: true })
   public name: string;
+
+  @prop()
+  public avatar: string;
+
+  @prop()
+  public birthdate: Date;
+
+  @prop()
+  public gender: string;
+
+  @prop()
+  public about: string;
+
+  @prop()
+  public occupation: string;
+
+  @prop()
+  public skills: string;
+
+  @prop()
+  public phone: string;
+
+  @prop()
+  public location: Location;
 
   @prop({ minlength: 8, required: true })
   public password: string;
