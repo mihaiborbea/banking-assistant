@@ -45,8 +45,9 @@ export class UsersController {
 
   @Patch(':id')
   @UseGuards(AuthGuard())
-  public async update(@Body() input: any, @Res() res: Response): Promise<void> {
+  public async update(@Param('id') id: string, @Body() input: any, @Res() res: Response): Promise<void> {
     try {
+      input._id = id;
       const user = await this.service.update(input);
       res.status(HttpStatus.OK).json(user);
     } catch (e) {
