@@ -8,123 +8,127 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
+import { AuthService } from 'modules/auth/auth.service';
+
 @Component({
-    selector: 'navbar-vertical-style-1',
-    templateUrl: './style-1.component.html',
-    styleUrls: ['./style-1.component.scss'],
-    encapsulation: ViewEncapsulation.None
+  selector: 'navbar-vertical-style-1',
+  templateUrl: './style-1.component.html',
+  styleUrls: ['./style-1.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
-    fuseConfig: any;
-    fusePerfectScrollbarUpdateTimeout: any;
-    navigation: any;
+  fuseConfig: any;
+  fusePerfectScrollbarUpdateTimeout: any;
+  navigation: any;
+  userDetails: any;
 
-    // Private
-    private _fusePerfectScrollbar: FusePerfectScrollbarDirective;
-    private _unsubscribeAll: Subject<any>;
+  // Private
+  private _fusePerfectScrollbar: FusePerfectScrollbarDirective;
+  private _unsubscribeAll: Subject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {FuseConfigService} _fuseConfigService
-     * @param {FuseNavigationService} _fuseNavigationService
-     * @param {FuseSidebarService} _fuseSidebarService
-     * @param {Router} _router
-     */
-    constructor(
-        private _fuseConfigService: FuseConfigService,
-        private _fuseNavigationService: FuseNavigationService,
-        private _fuseSidebarService: FuseSidebarService,
-        private _router: Router
-    ) {
-        // Set the private defaults
-        this._unsubscribeAll = new Subject();
+  /**
+   * Constructor
+   *
+   * @param {FuseConfigService} _fuseConfigService
+   * @param {FuseNavigationService} _fuseNavigationService
+   * @param {FuseSidebarService} _fuseSidebarService
+   * @param {Router} _router
+   */
+  constructor(
+    private _fuseConfigService: FuseConfigService,
+    private _fuseNavigationService: FuseNavigationService,
+    private _fuseSidebarService: FuseSidebarService,
+    private _router: Router,
+    private _authService: AuthService
+  ) {
+    this._unsubscribeAll = new Subject();
+    this.userDetails = this._authService.getUserAuthData();
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Accessors
+  // -----------------------------------------------------------------------------------------------------
+
+  // Directive
+  @ViewChild(FusePerfectScrollbarDirective)
+  set directive(theDirective: FusePerfectScrollbarDirective) {
+    if (!theDirective) {
+      return;
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
+    this._fusePerfectScrollbar = theDirective;
 
-    // Directive
-    @ViewChild(FusePerfectScrollbarDirective)
-    set directive(theDirective: FusePerfectScrollbarDirective) {
-        if (!theDirective) {
-            return;
+    // Update the scrollbar on collapsable item toggle
+    this._fuseNavigationService.onItemCollapseToggled.pipe(takeUntil(this._unsubscribeAll)).subscribe(() => {
+      this.fusePerfectScrollbarUpdateTimeout = setTimeout(() => {
+        this._fusePerfectScrollbar.update();
+      }, 310);
+    });
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    this._router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this._unsubscribeAll)
+      )
+      .subscribe(() => {
+        if (this._fuseSidebarService.getSidebar('navbar')) {
+          this._fuseSidebarService.getSidebar('navbar').close();
         }
+      });
 
-        this._fusePerfectScrollbar = theDirective;
+    // Subscribe to the config changes
+    this._fuseConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe((config) => {
+      this.fuseConfig = config;
+    });
 
-        // Update the scrollbar on collapsable item toggle
-        this._fuseNavigationService.onItemCollapseToggled.pipe(takeUntil(this._unsubscribeAll)).subscribe(() => {
-            this.fusePerfectScrollbarUpdateTimeout = setTimeout(() => {
-                this._fusePerfectScrollbar.update();
-            }, 310);
-        });
+    // Get current navigation
+    this._fuseNavigationService.onNavigationChanged
+      .pipe(
+        filter((value) => value !== null),
+        takeUntil(this._unsubscribeAll)
+      )
+      .subscribe(() => {
+        this.navigation = this._fuseNavigationService.getCurrentNavigation();
+      });
+  }
+
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    if (this.fusePerfectScrollbarUpdateTimeout) {
+      clearTimeout(this.fusePerfectScrollbarUpdateTimeout);
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
 
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        this._router.events
-            .pipe(
-                filter((event) => event instanceof NavigationEnd),
-                takeUntil(this._unsubscribeAll)
-            )
-            .subscribe(() => {
-                if (this._fuseSidebarService.getSidebar('navbar')) {
-                    this._fuseSidebarService.getSidebar('navbar').close();
-                }
-            });
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-        // Subscribe to the config changes
-        this._fuseConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe((config) => {
-            this.fuseConfig = config;
-        });
+  /**
+   * Toggle sidebar opened status
+   */
+  toggleSidebarOpened(): void {
+    this._fuseSidebarService.getSidebar('navbar').toggleOpen();
+  }
 
-        // Get current navigation
-        this._fuseNavigationService.onNavigationChanged
-            .pipe(
-                filter((value) => value !== null),
-                takeUntil(this._unsubscribeAll)
-            )
-            .subscribe(() => {
-                this.navigation = this._fuseNavigationService.getCurrentNavigation();
-            });
-    }
-
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void {
-        if (this.fusePerfectScrollbarUpdateTimeout) {
-            clearTimeout(this.fusePerfectScrollbarUpdateTimeout);
-        }
-
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
-    }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Toggle sidebar opened status
-     */
-    toggleSidebarOpened(): void {
-        this._fuseSidebarService.getSidebar('navbar').toggleOpen();
-    }
-
-    /**
-     * Toggle sidebar folded status
-     */
-    toggleSidebarFolded(): void {
-        this._fuseSidebarService.getSidebar('navbar').toggleFold();
-    }
+  /**
+   * Toggle sidebar folded status
+   */
+  toggleSidebarFolded(): void {
+    this._fuseSidebarService.getSidebar('navbar').toggleFold();
+  }
 }
