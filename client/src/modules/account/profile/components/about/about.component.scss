@@ -6,6 +6,7 @@
         justify-content: center;
 
         .about-content {
+            max-width: 50% !important;
             .general {
                 .location {
                     mat-icon {
@@ -76,6 +77,10 @@
 
                 &:last-child {
                     margin-bottom: 0;
+                }
+
+                .mat-radio-button {
+                    margin-right: 10px;
                 }
             }
         }

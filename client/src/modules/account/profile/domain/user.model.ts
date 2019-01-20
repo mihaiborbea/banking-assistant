@@ -30,4 +30,8 @@ export class User {
     // public accounts: Account[];
 
     // public transactions: Transaction[];
+
+    public get fullLocation(): string {
+        return `${this.location.country}, ${this.location.city}, ${this.location.postalCode}`;
+    }
 }
