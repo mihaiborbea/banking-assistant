@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 
-import { ProfileService } from '../profile.service';
+import { ProfileService } from '../../profile.service';
 
 @Component({
     selector: 'profile-about',

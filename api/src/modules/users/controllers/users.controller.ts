@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards, UsePipes } from '@nestjs/common';
+// tslint:disable-next-line:max-line-length
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res, UseGuards, UsePipes } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 
@@ -42,7 +43,7 @@ export class UsersController {
     }
   }
 
-  @Put(':id')
+  @Patch(':id')
   @UseGuards(AuthGuard())
   public async update(@Body() input: any, @Res() res: Response): Promise<void> {
     try {

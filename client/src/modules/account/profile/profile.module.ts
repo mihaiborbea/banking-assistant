@@ -5,8 +5,8 @@ import { MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule } from 
 import { FuseSharedModule } from '@fuse/shared.module';
 
 import { ProfileService } from './profile.service';
-import { ProfileComponent } from './profile.component';
-import { ProfileAboutComponent } from './about/about.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileAboutComponent } from './components/about/about.component';
 
 const ProfileRoutes: Routes = [
     {
