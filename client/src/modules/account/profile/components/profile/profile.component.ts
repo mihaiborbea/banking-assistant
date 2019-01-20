@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { fuseAnimations } from '@fuse/animations';
+import { ProfileService } from '../../profile.service';
 
 @Component({
     selector: 'profile',
@@ -12,13 +13,18 @@ import { fuseAnimations } from '@fuse/animations';
 })
 export class ProfileComponent {
     public editMode = false;
-    constructor(private readonly _router: Router, private readonly _route: ActivatedRoute) {
+    public userData: any;
+
+    constructor(private readonly _router: Router, private readonly _route: ActivatedRoute, private readonly _profileService: ProfileService) {
         this._route.queryParams.subscribe((params) => {
             if (params.edit) {
                 this.editMode = true;
                 return;
             }
             this.editMode = false;
+        });
+        this._profileService.userChanged.subscribe((data) => {
+            this.userData = data;
         });
     }
 

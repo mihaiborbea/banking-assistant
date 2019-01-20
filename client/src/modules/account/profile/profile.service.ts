@@ -3,80 +3,36 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { ProfileModule } from './profile.module';
+import { environment } from 'environments/environment';
+import { AuthService } from 'modules/auth/auth.service';
 
 @Injectable()
 export class ProfileService implements Resolve<any> {
-    timeline: any;
-    about: any;
-    photosVideos: any;
+    public user: any;
+    public userChanged: BehaviorSubject<any>;
 
-    timelineOnChanged: BehaviorSubject<any>;
-    aboutOnChanged: BehaviorSubject<any>;
-    photosVideosOnChanged: BehaviorSubject<any>;
+    private userEndpoint: string = environment.apiUrl + '/users';
 
-    /**
-     * Constructor
-     *
-     * @param {HttpClient} _httpClient
-     */
-    constructor(private _httpClient: HttpClient) {
-        // Set the defaults
-        this.timelineOnChanged = new BehaviorSubject({});
-        this.aboutOnChanged = new BehaviorSubject({});
-        this.photosVideosOnChanged = new BehaviorSubject({});
+    constructor(private _httpClient: HttpClient, private readonly _authService: AuthService) {
+        const loggedUserData = this._authService.getUserAuthData();
+        this.userEndpoint = `${this.userEndpoint}/${loggedUserData._id}`;
+        this.userChanged = new BehaviorSubject({});
     }
 
-    /**
-     * Resolver
-     *
-     * @param {ActivatedRouteSnapshot} route
-     * @param {RouterStateSnapshot} state
-     * @returns {Observable<any> | Promise<any> | any}
-     */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+    public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
         return new Promise((resolve, reject) => {
-            Promise.all([this.getTimeline(), this.getAbout(), this.getPhotosVideos()]).then(() => {
+            Promise.all([this.getUser()]).then(() => {
                 resolve();
             }, reject);
         });
     }
 
-    /**
-     * Get timeline
-     */
-    getTimeline(): Promise<any[]> {
+    public getUser(): Promise<any[]> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get('api/profile-timeline').subscribe((timeline: any) => {
-                this.timeline = timeline;
-                this.timelineOnChanged.next(this.timeline);
-                resolve(this.timeline);
-            }, reject);
-        });
-    }
-
-    /**
-     * Get about
-     */
-    getAbout(): Promise<any[]> {
-        return new Promise((resolve, reject) => {
-            this._httpClient.get('api/profile-about').subscribe((about: any) => {
-                this.about = about;
-                this.aboutOnChanged.next(this.about);
-                resolve(this.about);
-            }, reject);
-        });
-    }
-
-    /**
-     * Get photos & videos
-     */
-    getPhotosVideos(): Promise<any[]> {
-        return new Promise((resolve, reject) => {
-            this._httpClient.get('api/profile-photos-videos').subscribe((photosVideos: any) => {
-                this.photosVideos = photosVideos;
-                this.photosVideosOnChanged.next(this.photosVideos);
-                resolve(this.photosVideos);
+            this._httpClient.get(this.userEndpoint).subscribe((usr: any) => {
+                this.user = usr;
+                this.userChanged.next(this.user);
+                resolve(this.user);
             }, reject);
         });
     }

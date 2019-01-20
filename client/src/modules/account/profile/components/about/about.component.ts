@@ -21,7 +21,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this._profileService.aboutOnChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe((about) => {
+        this._profileService.userChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe((about) => {
             this.about = about;
         });
     }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-import { UserCredentials } from './domain/interfaces';
+import { UserCredentials, TokenContent } from './domain/interfaces';
 import { environment } from 'environments/environment';
 import { AuthModule } from './auth.module';
 import { StorageService } from './storage.service';
@@ -36,6 +36,11 @@ export class AuthService {
             return true;
         }
         return false;
+    }
+
+    public getUserAuthData(): TokenContent {
+        const token = this._storageService.getToken();
+        return this._jwtHelper.decodeToken(token);
     }
 
     public isAuthenticated(): boolean {
