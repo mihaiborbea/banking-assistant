@@ -9,7 +9,7 @@
             <button *ngIf="!editMode" mat-raised-button color="primary" aria-label="Edit profile" (click)="editProfile()">
                 <mat-icon>edit</mat-icon>Edit profile
             </button>
-            <button *ngIf="editMode" mat-raised-button color="primary" aria-label="Update profile" (click)="saveProfile()">
+            <button *ngIf="editMode" mat-raised-button color="primary" aria-label="Update profile" (click)="updateProfile()">
                 <mat-icon>save</mat-icon>Update profile
             </button>
         </div>
@@ -17,6 +17,6 @@
     <!-- / HEADER -->
 
     <!-- CONTENT -->
-    <div class="content"><profile-about [profile]="userData" [editMode]="editMode"></profile-about></div>
+    <div class="content"><profile-about #aboutCmp [profile]="userData" [editMode]="editMode"></profile-about></div>
     <!-- / CONTENT -->
 </div>

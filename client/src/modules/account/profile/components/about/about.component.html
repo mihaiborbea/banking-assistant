@@ -64,22 +64,16 @@
             </div>
         </div>
     </div>
-    <form *ngIf="editMode" class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="65">
+    <form *ngIf="editMode" [formGroup]="profileForm" class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="65">
         <div class="profile-box info-box contact" fxLayout="column">
             <header class="mat-accent-bg"><div class="title">Contact</div></header>
 
             <div class="content">
                 <div class="info-line">
-                    <div class="title">Tel.</div>
-                    <div class="info">
-                        <span>{{ profile.phone }}</span>
-                    </div>
+                    <mat-form-field> <input matInput formControlName="phone" placeholder="Phone" /> </mat-form-field>
                 </div>
                 <div class="info-line">
-                    <div class="title">Email</div>
-                    <div class="info">
-                        <span>{{ profile.email }}</span>
-                    </div>
+                    <mat-form-field> <input matInput formControlName="email" placeholder="Email" /> </mat-form-field>
                 </div>
             </div>
         </div>
@@ -89,13 +83,11 @@
 
             <div class="content">
                 <div class="info-line">
-                    <div class="title">Occupation</div>
-                    <div class="info">{{ profile.occupation }}</div>
+                    <mat-form-field> <input matInput formControlName="occupation" placeholder="Occupation" /> </mat-form-field>
                 </div>
 
                 <div class="info-line">
-                    <div class="title">Skills</div>
-                    <div class="info">{{ profile.skills }}</div>
+                    <mat-form-field> <input matInput formControlName="skills" placeholder="Skills" /> </mat-form-field>
                 </div>
             </div>
         </div>
@@ -105,13 +97,11 @@
 
             <div class="content">
                 <div class="info-line">
-                    <div class="title">Gender</div>
-                    <div class="info">{{ profile.gender }}</div>
+                    <mat-form-field> <input matInput formControlName="gender" placeholder="Gender" /> </mat-form-field>
                 </div>
 
                 <div class="info-line">
-                    <div class="title">Birthday</div>
-                    <div class="info">{{ profile.birthdate }}</div>
+                    <mat-form-field> <input matInput formControlName="birthdate" placeholder="Birthdate" /> </mat-form-field>
                 </div>
 
                 <div class="info-line">
@@ -123,8 +113,7 @@
                 </div>
 
                 <div class="info-line">
-                    <div class="title">About Me</div>
-                    <div class="info">{{ profile.about }}</div>
+                    <mat-form-field> <input matInput formControlName="about" placeholder="About" /> </mat-form-field>
                 </div>
             </div>
         </div>

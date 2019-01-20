@@ -28,9 +28,19 @@ export class ProfileService implements Resolve<any> {
         });
     }
 
-    public getUser(): Promise<any[]> {
+    public getUser(): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.get<User>(this.userEndpoint).subscribe((usr: any) => {
+                this.user = usr;
+                this.userChanged.next(Object.assign(new User(), this.user));
+                resolve(this.user);
+            }, reject);
+        });
+    }
+
+    public updateUser(user: User): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.patch<User>(this.userEndpoint, user).subscribe((usr: any) => {
                 this.user = usr;
                 this.userChanged.next(Object.assign(new User(), this.user));
                 resolve(this.user);

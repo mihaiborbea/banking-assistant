@@ -1,10 +1,11 @@
-import { Component, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { fuseAnimations } from '@fuse/animations';
 import { ProfileService } from '../../profile.service';
 import { User } from '../../domain';
+import { ProfileAboutComponent } from '../about/about.component';
 
 @Component({
     selector: 'profile',
@@ -14,6 +15,9 @@ import { User } from '../../domain';
     animations: fuseAnimations
 })
 export class ProfileComponent implements OnDestroy {
+    @ViewChild('aboutCmp')
+    public about: ProfileAboutComponent;
+
     public editMode = false;
     public userData: User;
 
@@ -42,7 +46,8 @@ export class ProfileComponent implements OnDestroy {
         this._router.navigate(['account/profile'], { queryParams: { edit: true } });
     }
 
-    public saveProfile(): void {
+    public async updateProfile(): Promise<void> {
+        await this._profileService.updateUser(this.about.profileForm.value);
         this._router.navigate(['account/profile']);
     }
 }

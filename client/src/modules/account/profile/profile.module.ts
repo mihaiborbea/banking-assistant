@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule } from '@angular/material';
+import { MatButtonModule, MatDividerModule, MatIconModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
@@ -20,7 +20,7 @@ const ProfileRoutes: Routes = [
 
 @NgModule({
     declarations: [ProfileComponent, ProfileAboutComponent],
-    imports: [RouterModule.forChild(ProfileRoutes), MatButtonModule, MatDividerModule, MatIconModule, FuseSharedModule],
+    imports: [RouterModule.forChild(ProfileRoutes), MatButtonModule, MatDividerModule, MatIconModule, MatFormFieldModule, MatInputModule, FuseSharedModule],
     providers: [ProfileService]
 })
 export class ProfileModule {}
