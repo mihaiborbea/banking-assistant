@@ -7,47 +7,48 @@ import { fuseAnimations } from '@fuse/animations';
 import { ChatService } from './chat.service';
 
 @Component({
-    selector: 'chat',
-    templateUrl: './chat.component.html',
-    styleUrls: ['./chat.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations
+  selector: 'chat',
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  animations: fuseAnimations
 })
 export class ChatComponent implements OnInit, OnDestroy {
-    selectedChat: any;
+  selectedChat: any;
 
-    // Private
-    private _unsubscribeAll: Subject<any>;
+  // Private
+  private _unsubscribeAll: Subject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {ChatService} _chatService
-     */
-    constructor(private _chatService: ChatService) {
-        // Set the private defaults
-        this._unsubscribeAll = new Subject();
-    }
+  /**
+   * Constructor
+   *
+   * @param {ChatService} _chatService
+   */
+  constructor(private _chatService: ChatService) {
+    // Set the private defaults
+    this._unsubscribeAll = new Subject();
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        this._chatService.onChatSelected.pipe(takeUntil(this._unsubscribeAll)).subscribe((chatData) => {
-            this.selectedChat = chatData;
-        });
-    }
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    this._chatService.getChat('5725a680b3249760ea21de52');
+    this._chatService.onChatSelected.pipe(takeUntil(this._unsubscribeAll)).subscribe((chatData) => {
+      this.selectedChat = chatData;
+    });
+  }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
-    }
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
 }

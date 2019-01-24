@@ -7,44 +7,26 @@ import { fuseAnimations } from '@fuse/animations';
 import { ChatService } from '../../chat.service';
 
 @Component({
-    selector: 'chat-right-sidenav',
-    templateUrl: './right.component.html',
-    styleUrls: ['./right.component.scss'],
-    animations: fuseAnimations
+  selector: 'chat-right-sidenav',
+  templateUrl: './right.component.html',
+  styleUrls: ['./right.component.scss'],
+  animations: fuseAnimations
 })
 export class ChatRightSidenavComponent implements OnInit, OnDestroy {
-    view: string;
+  contact: any;
 
-    // Private
-    private _unsubscribeAll: Subject<any>;
+  private _unsubscribeAll: Subject<any>;
 
-    constructor(private _chatService: ChatService) {
-        // Set the defaults
-        this.view = 'contact';
-
-        // Set the private defaults
-        this._unsubscribeAll = new Subject();
-    }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        this._chatService.onRightSidenavViewChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe((view) => {
-            this.view = view;
-        });
-    }
-
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
-    }
+  constructor(private _chatService: ChatService) {
+    this._unsubscribeAll = new Subject();
+  }
+  ngOnInit(): void {
+    this._chatService.onContactSelected.pipe(takeUntil(this._unsubscribeAll)).subscribe((contact) => {
+      this.contact = contact;
+    });
+  }
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
 }
