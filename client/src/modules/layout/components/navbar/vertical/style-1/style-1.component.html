@@ -11,9 +11,9 @@
 </div>
 
 <div class="navbar-scroll-container" fusePerfectScrollbar [fusePerfectScrollbarOptions]="{ suppressScrollX: true }">
-  <div class="user mat-indigo-700-bg" fxLayout="column">
-    <div class="h3 username">{{ userDetails.name }}</div>
-    <div class="h5 email hint-text mt-8">{{ userDetails.email }}</div>
+  <div class="user mat-dark-grey-700-bg" fxLayout="column">
+    <div class="h3 username">{{ userDetails?.name }}</div>
+    <div class="h5 email hint-text mt-8">{{ userDetails?.email }}</div>
     <div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.background"><img class="avatar" src="assets/icons/avatar.png" /></div>
   </div>
 

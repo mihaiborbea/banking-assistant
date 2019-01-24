@@ -2,18 +2,18 @@ import { FuseNavigation } from '@fuse/types';
 
 export const navigation: FuseNavigation[] = [
   {
-    id: 'analytics',
-    title: 'Analytics',
-    type: 'item',
-    icon: 'show_chart',
-    url: '/dashboards/analytics'
-  },
-  {
-    id: 'project',
-    title: 'Project',
+    id: 'summary',
+    title: 'Summary',
     type: 'item',
     icon: 'bar_chart',
-    url: '/dashboards/project'
+    url: '/dashboards/summary'
+  },
+  {
+    id: 'transactions',
+    title: 'Transactions',
+    type: 'item',
+    icon: 'bar_chart',
+    url: '/dashboards/transactions'
   },
   {
     id: 'chat',

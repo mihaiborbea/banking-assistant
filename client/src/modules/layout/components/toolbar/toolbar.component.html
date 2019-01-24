@@ -16,7 +16,8 @@
     <div class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
       <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
         <div fxLayout="row" fxLayoutAlign="center center">
-          <img class="avatar mr-0 mr-sm-16" src="assets/icons/avatar.png" /> <span class="username mr-12" fxHide fxShow.gt-sm>{{ userDetails.name }}</span>
+          <img class="avatar mr-0 mr-sm-16" src="assets/icons/avatar.png" />
+          <span class="username mr-12" fxHide fxShow.gt-sm>{{ userDetails?.name || '' }}</span>
         </div>
       </button>
 

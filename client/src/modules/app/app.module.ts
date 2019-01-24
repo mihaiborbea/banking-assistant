@@ -25,75 +25,75 @@ import { AuthModule } from 'modules/auth/auth.module';
 import { JwtModule } from '@auth0/angular-jwt';
 
 const appRoutes: Routes = [
-    {
-        path: 'account',
-        loadChildren: '../account/account.module#AccountModule'
-    },
-    {
-        path: 'dashboards',
-        canLoad: [AuthGuard],
-        loadChildren: '../dashboards/dashboards.module#DashboardsModule'
-    },
-    {
-        path: 'chat',
-        canLoad: [AuthGuard],
-        loadChildren: '../chat/chat.module#ChatModule'
-    },
-    {
-        path: 'error',
-        loadChildren: '../error/error.module#ErrorModule'
-    },
-    {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: '/dashboards/analytics'
-    },
-    {
-        path: '**',
-        redirectTo: 'error/404'
-    }
+  {
+    path: 'account',
+    loadChildren: '../account/account.module#AccountModule'
+  },
+  {
+    path: 'dashboards',
+    canLoad: [AuthGuard],
+    loadChildren: '../dashboards/dashboards.module#DashboardsModule'
+  },
+  {
+    path: 'chat',
+    canLoad: [AuthGuard],
+    loadChildren: '../chat/chat.module#ChatModule'
+  },
+  {
+    path: 'error',
+    loadChildren: '../error/error.module#ErrorModule'
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/dashboards/summary'
+  },
+  {
+    path: '**',
+    redirectTo: 'error/404'
+  }
 ];
 
 export function tokenGetter(): string {
-    return localStorage.getItem('TOKEN');
+  return localStorage.getItem('TOKEN');
 }
 @NgModule({
-    declarations: [AppComponent],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        RouterModule.forRoot(appRoutes),
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
 
-        TranslateModule.forRoot(),
-        InMemoryWebApiModule.forRoot(FakeDbService, {
-            delay: 0,
-            passThruUnknownUrl: true
-        }),
-        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: tokenGetter,
-                whitelistedDomains: ['0.0.0.0:4001'],
-                blacklistedRoutes: ['0.0.0.0:4001/auth']
-            }
-        }),
+    TranslateModule.forRoot(),
+    InMemoryWebApiModule.forRoot(FakeDbService, {
+      delay: 0,
+      passThruUnknownUrl: true
+    }),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['0.0.0.0:4001'],
+        blacklistedRoutes: ['0.0.0.0:4001/auth']
+      }
+    }),
 
-        // Material
-        MatButtonModule,
-        MatIconModule,
-        MatMomentDateModule,
+    // Material
+    MatButtonModule,
+    MatIconModule,
+    MatMomentDateModule,
 
-        // Fuse modules
-        FuseModule.forRoot(fuseConfig),
-        FuseProgressBarModule,
-        FuseSharedModule,
-        FuseSidebarModule,
+    // Fuse modules
+    FuseModule.forRoot(fuseConfig),
+    FuseProgressBarModule,
+    FuseSharedModule,
+    FuseSidebarModule,
 
-        // App modules
-        LayoutModule,
-        AuthModule
-    ],
-    bootstrap: [AppComponent]
+    // App modules
+    LayoutModule,
+    AuthModule
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
