@@ -1,0 +1,95 @@
+<div id="summary" class="page-layout simple right-sidebar" fxLayout="row">
+  <!-- CENTER -->
+  <div class="center" fusePerfectScrollbar>
+    <!-- CONTENT -->
+    <div class="content">
+      <!-- WIDGET GROUP -->
+      <div
+        class="widget-group grey-100-bg p-12"
+        fxLayout="row wrap"
+        fxLayoutAlign="center center"
+        fxFlex="100"
+        *fuseIfOnDom
+        [@animateStagger]="{ value: '50' }"
+      >
+        <fuse-widget [@animate]="{ value: '*', params: { y: '100%' } }" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-md="75" fxFlex.gt-xs="50">
+          <div class="position-relative p-24 mat-blue-600-bg" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <span class="h2">Visitors</span> <span class="h5 secondary-text">Unique visitors by month</span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <div
+                class="py-8 px-12 border-radius-2 line-height-1 mr-8 cursor-pointer"
+                (click)="widget1SelectedYear = '2015'"
+                [ngClass]="{ 'blue-300-bg': widget1SelectedYear === '2015' }"
+              >
+                2015
+              </div>
+              <div
+                class="py-8 px-12 border-radius-2 line-height-1 mr-8 cursor-pointer"
+                (click)="widget1SelectedYear = '2016'"
+                [ngClass]="{ 'blue-300-bg': widget1SelectedYear === '2016' }"
+              >
+                2016
+              </div>
+              <div
+                class="py-8 px-12 border-radius-2 line-height-1 cursor-pointer"
+                (click)="widget1SelectedYear = '2017'"
+                [ngClass]="{ 'blue-300-bg': widget1SelectedYear === '2017' }"
+              >
+                2017
+              </div>
+            </div>
+          </div>
+
+          <div class="position-relative h-256 pb-16 mat-blue-600-bg">
+            <canvas
+              baseChart
+              [datasets]="widgets.widget1.datasets[widget1SelectedYear]"
+              [labels]="widgets.widget1.labels"
+              [colors]="widgets.widget1.colors"
+              [options]="widgets.widget1.options"
+              [chartType]="widgets.widget1.chartType"
+            >
+            </canvas>
+          </div>
+        </fuse-widget>
+
+        <!-- WIDGET 10 -->
+        <fuse-widget [@animate]="{ value: '*', params: { y: '100%' } }" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-md="75" fxFlex.gt-xs="50">
+          <!-- Front -->
+          <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+            <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+              <div class="px-16 py-8 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="h3">{{ widgets.widget6.title }}</div>
+              </div>
+              <div class="h-400">
+                <table class="simple">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let column of widgets.widget10.table.columns">{{ column.title }}</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let row of widgets.widget10.table.rows">
+                      <td *ngFor="let cell of row">
+                        <span class="p-4" [ngClass]="cell.classes"> {{ cell.value }} </span>
+                        <mat-icon *ngIf="cell.icon" class="s-16">{{ cell.icon }} </mat-icon>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- / Front -->
+        </fuse-widget>
+        <!-- / WIDGET 10 -->
+      </div>
+      <!-- / WIDGET GROUP -->
+    </div>
+    <!-- / CONTENT -->
+  </div>
+  <!-- / CENTER -->
+</div>
