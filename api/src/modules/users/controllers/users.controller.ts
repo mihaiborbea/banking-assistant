@@ -32,6 +32,28 @@ export class UsersController {
     }
   }
 
+  @Get(':id/provision')
+  @UseGuards(AuthGuard())
+  public async provisionOne(@Param('id') id: string, @Res() res: Response): Promise<void> {
+    try {
+      const user = await this.service.provisionOne(id);
+      res.status(HttpStatus.OK).json(user);
+    } catch (e) {
+      res.status(HttpStatus.BAD_REQUEST).send(e);
+    }
+  }
+
+  @Get(':id/transactions')
+  @UseGuards(AuthGuard())
+  public async findOnesTransactions(@Param('id') id: string, @Res() res: Response): Promise<void> {
+    try {
+      const user = await this.service.retrieveOnesTransactions(id);
+      res.status(HttpStatus.OK).json(user);
+    } catch (e) {
+      res.status(HttpStatus.BAD_REQUEST).send(e);
+    }
+  }
+
   @Get()
   @UseGuards(AuthGuard())
   public async findAll(@Param() critera: any, @Res() res: Response): Promise<void> {

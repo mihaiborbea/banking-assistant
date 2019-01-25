@@ -10,5 +10,11 @@ export class Transaction extends Typegoose {
   public amount: number;
 
   @prop()
-  public code: string;
+  public date: Date;
+
+  @prop()
+  public accountName: string;
+
+  @prop()
+  public category: string;
 }

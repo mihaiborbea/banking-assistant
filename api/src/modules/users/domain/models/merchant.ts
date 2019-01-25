@@ -6,4 +6,7 @@ export class Merchant extends Typegoose {
 
   @prop()
   public logo: string;
+
+  @prop()
+  public code: string;
 }
