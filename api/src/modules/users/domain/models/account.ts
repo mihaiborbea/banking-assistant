@@ -2,7 +2,7 @@ import { prop, Typegoose } from 'typegoose';
 
 export class Account extends Typegoose {
   @prop({ unique: true })
-  public iban: string;
+  public name: string;
 
   @prop()
   public balance: number;
@@ -11,5 +11,5 @@ export class Account extends Typegoose {
   public currency: string;
 
   @prop()
-  public type: string;
+  public main: boolean;
 }

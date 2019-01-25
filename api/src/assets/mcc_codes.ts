@@ -1,5 +1,13 @@
+// tslint:disable:no-commented-code
+// tslint:disable:max-file-line-count
 // tslint:disable:max-line-length
+// tslint:disable:no-duplicate-string
 export const MCCCatalog = [
+  {
+    code: '0',
+    description: 'Salary',
+    category: 'Salary'
+  },
   {
     code: '0742',
     description: 'Veterinary Services',
