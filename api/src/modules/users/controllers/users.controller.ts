@@ -1,8 +1,23 @@
 // tslint:disable-next-line:max-line-length
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res, UseGuards, UsePipes } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Res,
+  UseGuards,
+  UsePipes
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 
+import { PaginationCriteria } from '../domain/models/pagination-criteria';
 import { HashPasswordPipe } from '../services';
 import { UsersService } from '../services/users.service';
 
@@ -45,10 +60,17 @@ export class UsersController {
 
   @Get(':id/transactions')
   @UseGuards(AuthGuard())
-  public async findOnesTransactions(@Param('id') id: string, @Res() res: Response): Promise<void> {
+  public async findOnesTransactions(
+    @Param('id') id: string,
+    @Query() query: PaginationCriteria,
+    @Res() res: Response
+  ): Promise<void> {
+    if ((!query.page || !query.count) && !query.aggregate) {
+      throw new BadRequestException('Provide page and count or aggregate');
+    }
     try {
-      const user = await this.service.retrieveOnesTransactions(id);
-      res.status(HttpStatus.OK).json(user);
+      const transactions = await this.service.retrieveOnesTransactions(id, query);
+      res.status(HttpStatus.OK).json(transactions);
     } catch (e) {
       res.status(HttpStatus.BAD_REQUEST).send(e);
     }

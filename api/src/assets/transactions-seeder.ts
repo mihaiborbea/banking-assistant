@@ -5,7 +5,7 @@ import { MERCHANTS } from './merchants';
 
 export function generateTransactions(): Transaction[] {
   const transactions: Transaction[] = [...getSalaries(), ...getExpensiveTransactions(), ...getNormalTransactions()];
-  return transactions.sort((a, b) => a.date.getTime() - b.date.getTime());
+  return transactions.sort((a, b) => b.date.getTime() - a.date.getTime());
 }
 
 function getRandomInt(min: number, max: number): number {
@@ -40,7 +40,15 @@ function getSalaries(): Transaction[] {
   const employer = Object.assign(new Merchant(), MERCHANTS.find(m => m.name === 'Google'));
   for (const d = new Date(from); d <= to; d.setMonth(d.getMonth() + 1)) {
     // tslint:disable-next-line:max-line-length
-    salaries.push(Object.assign(new Transaction(), { merchant: employer, amount: 9300, date: new Date(d), accountName: 'Main', category: 'Salary' }));
+    salaries.push(
+      Object.assign(new Transaction(), {
+        merchant: employer,
+        amount: 9300,
+        date: new Date(d),
+        accountName: 'Main',
+        category: 'Salary'
+      })
+    );
   }
   return salaries;
 }
@@ -88,9 +96,8 @@ function getNormalTransactions(): Transaction[] {
     .minutes(0)
     .seconds(0);
   // tslint:disable-next-line:max-line-length
-  const normalMerchants: Merchant[] = MERCHANTS.filter(m => m.name !== 'IKEA' && m.name !== 'eMag' && m.name !== 'evoMag').map(m =>
-    Object.assign(new Merchant(), m)
-  );
+  const normalMerchants: Merchant[] = MERCHANTS.filter(m => m.name !== 'IKEA' && m.name !== 'eMag' && m.name !== 'evoMag'
+  ).map(m => Object.assign(new Merchant(), m));
   const transactions: Transaction[] = [];
   for (const d = from.toDate(); d <= to.toDate(); d.setDate(d.getDate() + getRandomInt(0, 2))) {
     const noOfTrans = getRandomInt(0, 3);

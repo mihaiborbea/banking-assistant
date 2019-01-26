@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 import { BaseEntityService } from 'src/modules/shared/services';
 import { UsersMapper } from '../domain/mappers';
-import { User } from '../domain/models';
+import { PaginatedItems, Transaction, User } from '../domain/models';
+import { PaginationCriteria } from '../domain/models/pagination-criteria';
 
 @Injectable()
 export class UsersService extends BaseEntityService<User> {
@@ -15,12 +16,15 @@ export class UsersService extends BaseEntityService<User> {
     return this.mapper.retrieveOneByCriteria({ email });
   }
 
-  public async retrieveOnesTransactions(id: string): Promise<User> {
-    const item = await this.mapper.retrieveOnesTransactions(id);
-    if (!item) {
-      throw new Error("User doesn't exist!");
+  public async retrieveOnesTransactions(
+    id: string,
+    criteria: PaginationCriteria
+  ): Promise<PaginatedItems<Transaction> | any> {
+    const items = await this.mapper.retrieveOnesTransactions(id, criteria);
+    if (!items) {
+      throw new Error('User has now transactions');
     }
-    return item;
+    return items;
   }
 
   public async provisionOne(id: string): Promise<User> {

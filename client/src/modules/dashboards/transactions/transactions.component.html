@@ -12,75 +12,105 @@
         *fuseIfOnDom
         [@animateStagger]="{ value: '50' }"
       >
-        <fuse-widget [@animate]="{ value: '*', params: { y: '100%' } }" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-md="75" fxFlex.gt-xs="50">
-          <div class="position-relative p-24 mat-blue-600-bg" fxLayout="row" fxLayoutAlign="space-between center">
+        <fuse-widget
+          [@animate]="{ value: '*', params: { y: '100%' } }"
+          class="widget"
+          fxLayout="column"
+          fxFlex="100"
+          fxFlex.gt-md="75"
+          fxFlex.gt-xs="100"
+        >
+          <div class="position-relative p-24 mat-green-600-bg" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="column" fxLayoutAlign="start start">
-              <span class="h2">Visitors</span> <span class="h5 secondary-text">Unique visitors by month</span>
+              <span class="h2">Transactions</span>
+              <span class="h5 secondary-text">Transactions {{ selectedMonth }} month</span>
             </div>
             <div fxLayout="row" fxLayoutAlign="start center">
               <div
                 class="py-8 px-12 border-radius-2 line-height-1 mr-8 cursor-pointer"
-                (click)="widget1SelectedYear = '2015'"
-                [ngClass]="{ 'blue-300-bg': widget1SelectedYear === '2015' }"
+                (click)="selectedMonth = 'previous'"
+                [ngClass]="{ 'green-300-bg': selectedMonth === 'previous' }"
               >
-                2015
-              </div>
-              <div
-                class="py-8 px-12 border-radius-2 line-height-1 mr-8 cursor-pointer"
-                (click)="widget1SelectedYear = '2016'"
-                [ngClass]="{ 'blue-300-bg': widget1SelectedYear === '2016' }"
-              >
-                2016
+                Previous
               </div>
               <div
                 class="py-8 px-12 border-radius-2 line-height-1 cursor-pointer"
-                (click)="widget1SelectedYear = '2017'"
-                [ngClass]="{ 'blue-300-bg': widget1SelectedYear === '2017' }"
+                (click)="selectedMonth = 'current'"
+                [ngClass]="{ 'green-300-bg': selectedMonth === 'current' }"
               >
-                2017
+                Current
               </div>
             </div>
           </div>
 
-          <div class="position-relative h-256 pb-16 mat-blue-600-bg">
+          <div class="position-relative h-256 pb-16 mat-green-600-bg">
             <canvas
               baseChart
-              [datasets]="widgets.widget1.datasets[widget1SelectedYear]"
-              [labels]="widgets.widget1.labels"
-              [colors]="widgets.widget1.colors"
-              [options]="widgets.widget1.options"
-              [chartType]="widgets.widget1.chartType"
+              [datasets]="chart.datasets[selectedMonth]"
+              [labels]="chart.labels[selectedMonth]"
+              [colors]="chart.colors"
+              [options]="chart.options"
+              [chartType]="chart.chartType"
             >
             </canvas>
           </div>
         </fuse-widget>
 
         <!-- WIDGET 10 -->
-        <fuse-widget [@animate]="{ value: '*', params: { y: '100%' } }" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-md="75" fxFlex.gt-xs="50">
+        <fuse-widget
+          [@animate]="{ value: '*', params: { y: '100%' } }"
+          class="widget"
+          fxLayout="column"
+          fxFlex="100"
+          fxFlex.gt-md="75"
+          fxFlex.gt-xs="100"
+        >
           <!-- Front -->
           <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
             <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
               <div class="px-16 py-8 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
-                <div class="h3">{{ widgets.widget6.title }}</div>
+                <div class="h3">History</div>
               </div>
-              <div class="h-400">
-                <table class="simple">
-                  <thead>
-                    <tr>
-                      <th *ngFor="let column of widgets.widget10.table.columns">{{ column.title }}</th>
-                    </tr>
-                  </thead>
+              <table class="simple" mat-table [dataSource]="collection.items">
+                <ng-container matColumnDef="amount">
+                  <th mat-header-cell *matHeaderCellDef>Amount</th>
+                  <td mat-cell *matCellDef="let transaction">
+                    <span [ngClass]="{ error: transaction.amount < 0, succes: transaction.amount > 0 }">{{
+                      transaction.amount + '.00'
+                    }}</span>
+                    <span> RON</span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="to">
+                  <th mat-header-cell *matHeaderCellDef>To</th>
+                  <td mat-cell *matCellDef="let transaction" fxLayoutAlign="start center">
+                    <img class="m-logo mr-4" src="{{ apiRoot + transaction.merchant.logo }}" />
+                    <span>{{ transaction.merchant.name }}</span>
+                  </td> </ng-container
+                ><ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef>Date</th>
+                  <td mat-cell *matCellDef="let transaction">
+                    {{ transaction.date | date: 'mediumDate' }}
+                  </td> </ng-container
+                ><ng-container matColumnDef="category">
+                  <th mat-header-cell *matHeaderCellDef>Category</th>
+                  <td mat-cell *matCellDef="let transaction">
+                    <span [ngClass]="{ error: true }">{{ transaction.category }}</span>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+              </table>
 
-                  <tbody>
-                    <tr *ngFor="let row of widgets.widget10.table.rows">
-                      <td *ngFor="let cell of row">
-                        <span class="p-4" [ngClass]="cell.classes"> {{ cell.value }} </span>
-                        <mat-icon *ngIf="cell.icon" class="s-16">{{ cell.icon }} </mat-icon>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <!-- Pagination -->
+              <mat-paginator
+                class="mat-paginator-sticky"
+                [length]="collection.meta.total"
+                [pageIndex]="collection.meta.page"
+                [pageSize]="collection.meta.count"
+                [pageSizeOptions]="[5, 10, 20]"
+                (page)="pageChanges($event.pageIndex, $event.pageSize)"
+              ></mat-paginator>
             </div>
           </div>
           <!-- / Front -->

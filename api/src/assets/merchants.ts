@@ -30,7 +30,7 @@ export const MERCHANTS = [
   },
   {
     name: 'elefant.ro',
-    logo: '/merchants/carrefour.jpg',
+    logo: '/merchants/elefant.jpg',
     code: '5192'
   },
   {
