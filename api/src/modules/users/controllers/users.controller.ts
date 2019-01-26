@@ -47,6 +47,17 @@ export class UsersController {
     }
   }
 
+  @Get(':id/accounts')
+  @UseGuards(AuthGuard())
+  public async findOnesAccounts(@Param('id') id: string, @Res() res: Response): Promise<void> {
+    try {
+      const accounts = await this.service.retrieveOnesAccounts(id);
+      res.status(HttpStatus.OK).json(accounts);
+    } catch (e) {
+      res.status(HttpStatus.BAD_REQUEST).send(e);
+    }
+  }
+
   @Get(':id/provision')
   @UseGuards(AuthGuard())
   public async provisionOne(@Param('id') id: string, @Res() res: Response): Promise<void> {

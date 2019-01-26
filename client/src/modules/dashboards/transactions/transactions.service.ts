@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { Transaction, PaginationCriteria, Collection } from '../domain';
+import { Transaction, Collection } from '../domain';
 import { environment } from 'environments/environment';
 import { AuthService } from 'modules/auth/auth.service';
 import * as moment from 'moment';

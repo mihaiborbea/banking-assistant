@@ -3,29 +3,38 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { Account } from '../domain';
+import { environment } from 'environments/environment';
+import { AuthService } from 'modules/auth/auth.service';
+
 @Injectable()
 export class SummaryService implements Resolve<any> {
+  public accounts: Account[];
+
+  private apiEndpoint: string = environment.apiUrl + '/users';
+
   projects: any[];
   widgets: any[];
 
-  /**
-   * Constructor
-   *
-   * @param {HttpClient} _httpClient
-   */
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient, private readonly _authService: AuthService) {
+    const loggedUser = this._authService.getUserAuthData();
+    this.apiEndpoint = `${this.apiEndpoint}/${loggedUser._id}`;
+  }
 
-  /**
-   * Resolver
-   *
-   * @param {ActivatedRouteSnapshot} route
-   * @param {RouterStateSnapshot} state
-   * @returns {Observable<any> | Promise<any> | any}
-   */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return new Promise((resolve, reject) => {
-      Promise.all([this.getProjects(), this.getWidgets()]).then(() => {
+      Promise.all([this.getAccounts(), this.getProjects(), this.getWidgets()]).then(() => {
         resolve();
+      }, reject);
+    });
+  }
+
+  public getAccounts(): Promise<any> {
+    const apiUrl = this.apiEndpoint + '/accounts';
+    return new Promise((resolve, reject) => {
+      this._httpClient.get<Account[]>(apiUrl).subscribe((response: any) => {
+        this.accounts = response;
+        resolve(response);
       }, reject);
     });
   }
