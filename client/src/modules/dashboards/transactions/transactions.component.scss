@@ -53,4 +53,21 @@
       }
     }
   }
+
+  .error {
+    color: red;
+  }
+
+  .success {
+    color: green;
+  }
+  .m-logo {
+    height: 35px;
+    width: 35px;
+  }
+  .mat-paginator-sticky {
+    bottom: 0px;
+    position: sticky !important;
+    z-index: 10;
+  }
 }

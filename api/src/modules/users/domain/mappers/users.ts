@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import * as moment from 'moment';
 import { Types } from 'mongoose';
 import { ModelType } from 'typegoose';
 
@@ -6,7 +7,8 @@ import { generateTransactions } from 'src/assets/transactions-seeder';
 import { ICollection } from 'src/modules/shared/interfaces';
 import { CollectionFactory } from 'src/modules/shared/mappers';
 import { BaseEntityMapper } from 'src/modules/shared/mappers';
-import { Account, User } from '../models';
+import { Account, PaginatedItems, PaginationMeta, Transaction, User } from '../models';
+import { PaginationCriteria } from '../models/pagination-criteria';
 
 @Injectable()
 export class UsersMapper extends BaseEntityMapper<User> {
@@ -16,9 +18,14 @@ export class UsersMapper extends BaseEntityMapper<User> {
     return this.collection.find(criteria ? criteria : {}, { transactions: 0 });
   }
 
-  public async retrieveOnesTransactions(id: string): Promise<User> {
+  public async retrieveOnesTransactions(
+    id: string,
+    criteria: PaginationCriteria
+  ): Promise<PaginatedItems<Transaction> | any> {
     if (this.isValidObjectId(id)) {
-      return this.collection.findOne({ _id: new Types.ObjectId(id) }, 'transactions');
+      return !criteria.aggregate
+        ? await this.retrieveTransactionsPaginated(id, criteria.page, criteria.count)
+        : await this.retrieveTransactionsAggregated(id, criteria.aggregate);
     } else {
       throw new Error('Invalid ID');
     }
@@ -34,9 +41,49 @@ export class UsersMapper extends BaseEntityMapper<User> {
         main: true
       });
       // tslint:disable-next-line:max-line-length
-      return await this.collection.findOneAndUpdate({ _id: new Types.ObjectId(id) }, { $set: { accounts: [account], transactions } });
+      return await this.collection.findOneAndUpdate(
+        { _id: new Types.ObjectId(id) },
+        { $set: { accounts: [account], transactions } }
+      );
     } else {
       throw new Error('Invalid ID');
     }
+  }
+
+  private async retrieveTransactionsAggregated(id: string, aggregation: string): Promise<any> {
+    const prevMonth = moment()
+      .subtract(1, 'month')
+      .date(1)
+      .hours(0)
+      .minutes(0)
+      .seconds(0)
+      .toDate();
+    const currentMonth = moment()
+      .date(1)
+      .hours(0)
+      .minutes(0)
+      .seconds(0)
+      .toDate();
+    const user = await this.collection.findOne({ _id: new Types.ObjectId(id) }, 'transactions');
+    const previous = user.transactions
+      .filter(t => t.date >= prevMonth && t.date < currentMonth)
+      .map(t => ({ date: t.date, amount: t.amount }));
+    const current = user.transactions
+      .filter(t => t.date >= currentMonth)
+      .map(t => ({ date: t.date, amount: t.amount }));
+    return { previous, current };
+  }
+
+  private async retrieveTransactionsPaginated(
+    id: string,
+    page: number,
+    count: number
+  ): Promise<PaginatedItems<Transaction>> {
+    const user = await this.collection.findOne({ _id: new Types.ObjectId(id) }, 'transactions');
+    const start = page * count;
+    let temp = page;
+    const end = ++temp * count;
+    const transactions = user.transactions.slice(start, end);
+    return new PaginatedItems<Transaction>(transactions, new PaginationMeta(user.transactions.length, page, count));
   }
 }

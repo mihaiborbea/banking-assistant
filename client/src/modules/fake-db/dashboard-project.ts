@@ -28,14 +28,14 @@ export class ProjectDashboardDb {
         '2016': [
           {
             label: 'Sales',
-            data: [2.2, 2.9, 3.9, 2.5, 3.8, 3.2, 2.9, 1.9, 3, 3.4, 4.1, 3.8],
+            data: [0, 2.9, 3.9, 2.5, 3.8, 3.2, 2.9, 1.9, 3, 3.4, 4.1, 3.8],
             fill: 'start'
           }
         ],
         '2017': [
           {
             label: 'Sales',
-            data: [3.9, 2.5, 3.8, 4.1, 1.9, 3, 3.8, 3.2, 2.9, 3.4, 2.2, 2.9],
+            data: [0, 2.5, 3.8, 4.1, 0, 3, 3.8, 3.2, 2.9, 3.4, 0, 2.9],
             fill: 'start'
           }
         ]
@@ -43,10 +43,10 @@ export class ProjectDashboardDb {
       labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
       colors: [
         {
-          borderColor: '#42a5f5',
-          backgroundColor: '#42a5f5',
-          pointBackgroundColor: '#1e88e5',
-          pointHoverBackgroundColor: '#1e88e5',
+          borderColor: '#6ff287',
+          backgroundColor: '#6ff287',
+          pointBackgroundColor: '#51db6a',
+          pointHoverBackgroundColor: '#51db6a',
           pointBorderColor: '#ffffff',
           pointHoverBorderColor: '#ffffff'
         }
@@ -92,9 +92,9 @@ export class ProjectDashboardDb {
             {
               display: false,
               ticks: {
-                min: 1.5,
+                min: 0,
                 max: 5,
-                stepSize: 0.5
+                stepSize: 1
               }
             }
           ]
