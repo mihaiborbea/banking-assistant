@@ -29,21 +29,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   private _unsubscribe: Subject<any> = new Subject();
 
-  projects: any[];
-  selectedProject: any;
-  widget1SelectedYear = '2016';
-
-  widgets: any;
-  widget11: any = {};
-
-  dateNow = Date.now();
-
   constructor(private _fuseSidebarService: FuseSidebarService, private _transactionsService: TransactionsService) {
     this._registerCustomChartJSPlugin();
-
-    setInterval(() => {
-      this.dateNow = Date.now();
-    }, 1000);
   }
 
   public ngOnInit(): void {
@@ -51,10 +38,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       this.collection = data;
     });
     this.chart = this._transactionsService.chart;
-    this.widgets = this._transactionsService.widgets;
-    this.widget11.onContactsChanged = new BehaviorSubject({});
-    this.widget11.onContactsChanged.next(this.widgets.widget11.table.rows);
-    this.widget11.dataSource = new FilesDataSource(this.widget11);
   }
 
   public ngOnDestroy(): void {
@@ -64,10 +47,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   public async pageChanges(pageIndex: number, pageSize: number): Promise<void> {
     await this._transactionsService.changePages(pageIndex, pageSize);
-  }
-
-  toggleSidebar(name): void {
-    this._fuseSidebarService.getSidebar(name).toggleOpen();
   }
 
   private _registerCustomChartJSPlugin(): void {
@@ -123,29 +102,4 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       }
     });
   }
-}
-
-export class FilesDataSource extends DataSource<any> {
-  /**
-   * Constructor
-   *
-   * @param _widget11
-   */
-  constructor(private _widget11) {
-    super();
-  }
-
-  /**
-   * Connect function called by the table to retrieve one stream containing the data to render.
-   *
-   * @returns {Observable<any[]>}
-   */
-  connect(): Observable<any[]> {
-    return this._widget11.onContactsChanged;
-  }
-
-  /**
-   * Disconnect
-   */
-  disconnect(): void {}
 }

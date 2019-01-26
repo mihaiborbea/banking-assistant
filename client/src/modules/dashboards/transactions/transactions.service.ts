@@ -27,7 +27,7 @@ export class TransactionsService implements Resolve<any> {
 
   public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return new Promise((resolve, reject) => {
-      Promise.all([this.getTransactions(), this.getChart(), this.getWidgets()]).then(() => {
+      Promise.all([this.getTransactions(), this.getChart()]).then(() => {
         resolve();
       }, reject);
     });
@@ -46,15 +46,6 @@ export class TransactionsService implements Resolve<any> {
         this.collection = trans;
         this.transactionsChanged.next(this.collection);
         resolve(this.collection);
-      }, reject);
-    });
-  }
-
-  public getWidgets(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this._httpClient.get('api/project-dashboard-widgets').subscribe((response: any) => {
-        this.widgets = response;
-        resolve(response);
       }, reject);
     });
   }
