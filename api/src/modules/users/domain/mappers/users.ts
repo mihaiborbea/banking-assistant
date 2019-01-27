@@ -17,6 +17,15 @@ export class UsersMapper extends BaseEntityMapper<User> {
   public async retrieve(criteria?: any): Promise<any> {
     return this.collection.find(criteria ? criteria : {}, { transactions: 0 });
   }
+  public async retrieveOnesAccounts(id: string): Promise<Account[]> {
+    if (this.isValidObjectId(id)) {
+      const users = await this.collection.findOne({ _id: new Types.ObjectId(id) }, 'accounts');
+      return users.accounts;
+    } else {
+      // tslint:disable-next-line:no-duplicate-string
+      throw new Error('Invalid ID');
+    }
+  }
 
   public async retrieveOnesTransactions(
     id: string,

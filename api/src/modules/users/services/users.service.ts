@@ -5,6 +5,8 @@ import { UsersMapper } from '../domain/mappers';
 import { PaginatedItems, Transaction, User } from '../domain/models';
 import { PaginationCriteria } from '../domain/models/pagination-criteria';
 
+import { Account } from '../domain/models';
+
 @Injectable()
 export class UsersService extends BaseEntityService<User> {
   constructor(protected readonly mapper: UsersMapper) {
@@ -14,6 +16,19 @@ export class UsersService extends BaseEntityService<User> {
   // TODO: validate email
   public async retrieveOneByEmail(email: string): Promise<User> {
     return this.mapper.retrieveOneByCriteria({ email });
+  }
+
+  public async getChatResponse(input: any): Promise<any> {
+    console.log('getChatResponse');
+    return input;
+  }
+
+  public async retrieveOnesAccounts(id: string): Promise<Account[]> {
+    const items = await this.mapper.retrieveOnesAccounts(id);
+    if (!items) {
+      throw new Error('User has now transactions');
+    }
+    return items;
   }
 
   public async retrieveOnesTransactions(
