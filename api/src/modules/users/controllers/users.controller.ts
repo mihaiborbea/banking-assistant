@@ -36,6 +36,16 @@ export class UsersController {
     }
   }
 
+  @Post('/chat')
+  public async chat(@Body() input: any, @Res() res: Response): Promise<void> {
+    try {
+      // const chatResponse = await this.service.getChatResponse(input);
+      res.status(HttpStatus.CREATED).json('hello');
+    } catch (e) {
+      res.status(HttpStatus.BAD_REQUEST).send(e);
+    }
+  }
+
   @Get(':id')
   @UseGuards(AuthGuard())
   public async findOne(@Param('id') id: string, @Res() res: Response): Promise<void> {
