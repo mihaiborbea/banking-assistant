@@ -20,6 +20,7 @@ import { ChatService } from './chat.service';
 import { ChatComponent } from './chat.component';
 import { ChatViewComponent } from './chat-view/chat-view.component';
 import { ChatRightSidenavComponent } from './sidenavs/right/right.component';
+import { AssistantService } from './assistant.service';
 
 const routes: Routes = [
   {
@@ -49,6 +50,6 @@ const routes: Routes = [
 
     FuseSharedModule
   ],
-  providers: [ChatService]
+  providers: [ChatService, AssistantService]
 })
 export class ChatModule {}

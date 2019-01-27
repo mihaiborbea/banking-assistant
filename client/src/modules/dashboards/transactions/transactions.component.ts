@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import * as shape from 'd3-shape';
+import { Subject } from 'rxjs';
 import { fuseAnimations } from '@fuse/animations';
 import { TransactionsService } from './transactions.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { Transaction, Collection } from '../domain';
 import { environment } from 'environments/environment';
-import { MatPaginator } from '@angular/material';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

@@ -3,4 +3,5 @@
 export const environment = {
   production: false,
   apiUrl: 'http://0.0.0.0:4001',
+  dialogflowToken: '9a3251834022474ba63c0aa3d3115d85',
 };
