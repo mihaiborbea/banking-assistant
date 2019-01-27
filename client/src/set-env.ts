@@ -17,12 +17,13 @@ const envConfigFile = `
 export const environment = {
   production: ${env === 'prod'},
   apiUrl: '${process.env.API_URL}',
+  dialogflowToken: '${process.env.DIALOGFLOW_TOKEN}',
 };
 `;
 writeFile(targetPath, envConfigFile, (err) => {
-    if (err) {
-        console.error(err);
-    }
+  if (err) {
+    console.error(err);
+  }
 
-    console.log(`Output generated at ${targetPath}`);
+  console.log(`Output generated at ${targetPath}`);
 });

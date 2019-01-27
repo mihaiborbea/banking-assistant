@@ -12,12 +12,12 @@ export const navigation: FuseNavigation[] = [
     id: 'transactions',
     title: 'Transactions',
     type: 'item',
-    icon: 'bar_chart',
+    icon: 'swap_horiz',
     url: '/dashboards/transactions'
   },
   {
-    id: 'chat',
-    title: 'Chat',
+    id: 'assistant',
+    title: 'Assistant',
     type: 'item',
     icon: 'chat',
     url: '/chat',
