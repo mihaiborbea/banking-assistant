@@ -3,7 +3,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "baseUrl": ".",
-    "outDir": "../dist/src",
+    "outDir": "./dist",
     "paths": {
       "src": ["./src"]
     },
