@@ -1,7 +1,9 @@
 runtime: nodejs10
 
-skip_files:
-  - ^(?!dist) # Skip any files not in the dist folder
+env_variables:
+  API_URL: http://0.0.0.0:8080/api
+  PORT: 8080
+  DIALOGFLOW_TOKEN: 9a3251834022474ba63c0aa3d3115d85
 
 handlers:
   # Routing for bundles to serve directly
