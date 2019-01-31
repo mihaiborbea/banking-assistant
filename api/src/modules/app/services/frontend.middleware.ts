@@ -3,7 +3,7 @@ import * as path from 'path';
 
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];
 
-const resolvePath = (file: string) => path.resolve(`../../../../dist/client/${file}`);
+const resolvePath = (file: string) => path.resolve(`../../../../src/public/client/${file}`);
 
 @Middleware()
 export class FrontendMiddleware implements NestMiddleware {
