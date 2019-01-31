@@ -1,7 +1,6 @@
 runtime: nodejs
 env_variables:
   PORT: 8080
-  API_URL: http://0.0.0.0:8080
   MONGODB_HOST: 'banking-data-nzvtn.gcp.mongodb.net'
   MONGODB_DATABASE: 'api-data'
   MONGODB_USERNAME: 'root'
