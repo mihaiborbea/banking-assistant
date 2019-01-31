@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+ssh://git@gitlab.com:mihai.borbea/nest-kickstart.git"
   },
-  "main": "./dist/main.js",
+  "main": "./src/main.ts",
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build": "./node_modules/.bin/tsc -p tsconfig.build.json",
