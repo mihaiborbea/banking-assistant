@@ -2,6 +2,6 @@
 echo Starting project
 
 cd client
-npm run build
+npm i && npm run build
 cd ../
 cp client/dist api/dist/client
