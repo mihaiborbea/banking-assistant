@@ -15,10 +15,11 @@ services:
       - PORT=4001
       - DEBUG_PORT=4002
       - MONGODB_HOST=mongo
-      - MONGODB_DATABASE=api-data
       - MONGODB_PORT=27017
+      - MONGODB_DATABASE=api-data
       - MONGODB_USERNAME=root
       - MONGODB_PASSWORD=
+      - MONGODB_LOCATION=local
       - JWT_SECRET=secretKey
       - JWT_DURATION=24h
     dns: 8.8.8.8

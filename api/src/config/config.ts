@@ -1,6 +1,7 @@
 import { JwtModuleOptions } from '@nestjs/jwt';
 
 export interface DBConfig {
+  location: string;
   database: string;
   host: string;
   port: string;
@@ -21,8 +22,9 @@ export interface IConfig {
 
 const Config: IConfig = {
   db: {
+    location: process.env.MONGODB_LOCATION || 'local',
     database: process.env.MONGODB_DATABASE || 'api-data',
-    host: process.env.MONGODB_HOST || 'mongo',
+    host: process.env.MONGODB_HOST || 'localhost',
     password: process.env.MONGODB_PASSWORD || '',
     port: process.env.MONGODB_PORT || '27017',
     username: process.env.MONGODB_USERNAME || 'root'
