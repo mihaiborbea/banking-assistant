@@ -17,8 +17,8 @@
   },
   "scripts": {
     "prebuild": "rimraf ./dist",
-    "gcp-build": "tsc -p tsconfig.build.json",
-    "build": "./node_modules/.bin/tsc -p tsconfig.build.json",
+    "gcp-build": "tsc -p tsconfig.build.json && cp -R public/ dist/public/",
+    "build": "./node_modules/.bin/tsc -p tsconfig.build.json && cp -R public/ dist/public/",
     "start:dev": "nodemon --config nodemon.json",
     "start:debug": "nodemon --config nodemon-debug.json",
     "start": "node dist/main.js",
