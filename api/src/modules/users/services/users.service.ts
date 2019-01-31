@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseEntityService } from 'src/modules/shared/services';
+import { BaseEntityService } from '../../../modules/shared/services';
 import { UsersMapper } from '../domain/mappers';
 import { PaginatedItems, Transaction, User } from '../domain/models';
 import { PaginationCriteria } from '../domain/models/pagination-criteria';

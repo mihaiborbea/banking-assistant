@@ -20,7 +20,7 @@ export interface IConfig {
   debug: boolean;
 }
 
-export const Config: IConfig = {
+const Config: IConfig = {
   db: {
     location: process.env.MONGODB_LOCATION || 'local',
     database: process.env.MONGODB_DATABASE || 'api-data',
@@ -42,3 +42,5 @@ export const Config: IConfig = {
   serveStatic: true,
   serviceName: process.env.SERVICE_NAME || 'app'
 };
+
+export default Config;

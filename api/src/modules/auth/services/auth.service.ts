@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcryptjs';
 
-import { User } from 'src/modules/shared/models';
-import { UsersService } from 'src/modules/users/services';
+import { User } from '../../../modules/shared/models';
+import { UsersService } from '../../../modules/users/services';
 import { JwtPayload, UserCredentials } from '../domain/interfaces';
 
 @Injectable()

@@ -3,10 +3,10 @@ import * as moment from 'moment';
 import { Types } from 'mongoose';
 import { ModelType } from 'typegoose';
 
-import { generateTransactions } from 'src/assets/transactions-seeder';
-import { ICollection } from 'src/modules/shared/interfaces';
-import { CollectionFactory } from 'src/modules/shared/mappers';
-import { BaseEntityMapper } from 'src/modules/shared/mappers';
+import { generateTransactions } from '../../../../assets/transactions-seeder';
+import { ICollection } from '../../../../modules/shared/interfaces';
+import { CollectionFactory } from '../../../../modules/shared/mappers';
+import { BaseEntityMapper } from '../../../../modules/shared/mappers';
 import { Account, PaginatedItems, PaginationMeta, Transaction, User } from '../models';
 import { PaginationCriteria } from '../models/pagination-criteria';
 

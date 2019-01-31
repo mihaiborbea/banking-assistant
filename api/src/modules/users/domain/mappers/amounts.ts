@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { ModelType } from 'typegoose';
 
 import { Types } from 'mongoose';
-import { ICollection } from 'src/modules/shared/interfaces';
-import { CollectionFactory } from 'src/modules/shared/mappers';
-import { BaseEntityMapper } from 'src/modules/shared/mappers';
+import { ICollection } from '../../../../modules/shared/interfaces';
+import { CollectionFactory } from '../../../../modules/shared/mappers';
+import { BaseEntityMapper } from '../../../../modules/shared/mappers';
 import { Transaction, User } from '../models';
 
 @Injectable()

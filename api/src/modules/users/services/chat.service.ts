@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import moment = require('moment');
-import { BaseEntityService } from 'src/modules/shared/services';
+import { BaseEntityService } from '../../../modules/shared/services';
 import { AmountsMapper, UsersMapper } from '../domain/mappers';
 import { ChatResponse, User } from '../domain/models';
 

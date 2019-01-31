@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 import { inspect } from 'util';
 
-import Config, { DBConfig } from 'src/config/config';
+import Config, { DBConfig } from '../../config/config';
 
 const DBConfig: DBConfig = Config.db;
 const DBProtocol: string = DBConfig.location === 'atlas' ? 'mongodb+srv://' : 'mongodb://';
@@ -19,10 +19,7 @@ export const DatabaseProviders = [
       try {
         logger.log(`Connecting to MongoDB...`);
         logger.log(`${DBConnectionURI}`);
-        const connection = await mongoose.connect(
-          DBConnectionURI,
-          { useNewUrlParser: true }
-        );
+        const connection = await mongoose.connect(DBConnectionURI, { useNewUrlParser: true });
         mongoose.set('debug', (coll, method, query, doc, options) => {
           logger.log(`${coll}.${method}(${inspect(query)})`);
         });
