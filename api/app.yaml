@@ -1,6 +1,8 @@
 runtime: nodejs10
 env_variables:
   PORT: 8080
+  API_URL: 0.0.0.0:8080
+  DIALOGFLOW_TOKEN: 9a3251834022474ba63c0aa3d3115d85
   MONGODB_HOST: 'banking-data-nzvtn.gcp.mongodb.net'
   MONGODB_DATABASE: 'api-data'
   MONGODB_USERNAME: 'root'
