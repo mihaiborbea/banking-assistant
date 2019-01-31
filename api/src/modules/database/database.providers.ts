@@ -8,7 +8,7 @@ const DBConfig: DBConfig = Config.db;
 const DBProtocol: string = DBConfig.location === 'atlas' ? 'mongodb+srv://' : 'mongodb://';
 const DBCredentials: string = DBConfig.password ? `${DBConfig.username}:${DBConfig.password}@` : '';
 const DBConnectionURI: string = `${DBProtocol}${DBCredentials}${DBConfig.host}${
-  DBConfig.port ? ':' + DBConfig.port : ''
+  DBConfig.location !== 'atlas' && DBConfig.port ? ':' + DBConfig.port : ''
 }/${DBConfig.database}${DBConfig.location === 'atlas' ? '?retryWrites=true' : ''}`;
 const logger = new Logger('Database');
 
