@@ -7,4 +7,4 @@ ENV TZ=Europe/Bucharest
 
 WORKDIR /app
 
-CMD npm i; npm start:dev
+CMD npm i; npm run start:dev
