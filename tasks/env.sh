@@ -5,4 +5,4 @@ export MONGODB_HOST='banking-data-nzvtn.gcp.mongodb.net'
 export MONGODB_DATABASE='api-data'
 export MONGODB_USERNAME='root'
 export MONGODB_PASSWORD='hera-0311'
-export MONGODB_LOCATION='atlas
+export MONGODB_LOCATION='atlas'
