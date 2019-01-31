@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'modules/auth/auth.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Message } from './domain/message.interface';
 
 @Injectable()
@@ -25,14 +25,29 @@ export class AssistantService {
         .post(this.baseURL, data, { headers: { Authorization: `Bearer ${this.dialogflowToken}` } })
         .subscribe((response) => {
           if (response) {
-            this.onBotResponded.next(this.extractMessage(response));
+            this.onBotResponded.next(this.extractMessages(response));
           }
           resolve();
         }, reject);
     });
   }
 
-  private extractMessage(data: any): Message {
+  private extractMessages(data: any): Message {
+    console.log(data);
+    if (data.result.metadata.intentName === 'Amounts') {
+      return this.amountsMessage(data);
+    }
+    if (data.result.metadata.intentName === 'Transactions') {
+      return this.transactionsMessage(data);
+    }
+  }
+
+  private transactionsMessage(data: any): Message {
+    const transactions = data.result.fulfillment.messages[0].speech.split(',').join('\n-> ');
+    return { owner: 'bot', date: data.timestamp, text: `You got: \n-> ${transactions}` };
+  }
+
+  private amountsMessage(data: any): Message {
     return { owner: 'bot', date: data.timestamp, text: data.result.fulfillment.messages[0].speech };
   }
 }
