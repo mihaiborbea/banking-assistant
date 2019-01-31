@@ -15,14 +15,13 @@
     "type": "git",
     "url": "git+ssh://git@gitlab.com:mihai.borbea/nest-kickstart.git"
   },
-  "main": "./src/main.ts",
   "scripts": {
     "prebuild": "rimraf ./dist",
     "gcp-build": "tsc -p tsconfig.build.json",
     "build": "./node_modules/.bin/tsc -p tsconfig.build.json",
     "start:dev": "nodemon --config nodemon.json",
     "start:debug": "nodemon --config nodemon-debug.json",
-    "start": "node dist/src/main.js",
+    "start": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest --coverage false --verbose false --config jest.json",
     "test:watch": "jest --watchAll --coverage false --verbose false --config jest.json",
