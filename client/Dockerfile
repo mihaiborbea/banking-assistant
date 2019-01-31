@@ -25,5 +25,5 @@ ENV TZ=Europe/Bucharest
 
 WORKDIR /app
 
-CMD npm i && npm start
+CMD npm i && npm run start:dev
 #CMD tail -f /dev/null

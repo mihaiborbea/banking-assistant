@@ -1,5 +1,5 @@
 start:
 		bash ./tasks/start.sh
 
-build:
-		bash ./tasks/build.sh
+deploy:
+		bash ./tasks/deploy.sh
