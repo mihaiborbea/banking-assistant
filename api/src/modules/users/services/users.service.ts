@@ -18,11 +18,6 @@ export class UsersService extends BaseEntityService<User> {
     return this.mapper.retrieveOneByCriteria({ email });
   }
 
-  public async getChatResponse(input: any): Promise<any> {
-    console.log('getChatResponse');
-    return input;
-  }
-
   public async retrieveOnesAccounts(id: string): Promise<Account[]> {
     const items = await this.mapper.retrieveOnesAccounts(id);
     if (!items) {

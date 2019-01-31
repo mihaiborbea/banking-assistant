@@ -30,7 +30,8 @@ export const MCCCatalog = [
   },
   {
     code: '1711',
-    description: 'Air Conditioning Contractors – Sales and Installation, Heating Contractors – Sales, Service, Installation',
+    description:
+      'Air Conditioning Contractors – Sales and Installation, Heating Contractors – Sales, Service, Installation',
     category: 'Heating, Plumbing, A/C'
   },
   {
@@ -3526,8 +3527,10 @@ export const MCCCatalog = [
   },
   {
     code: '4214',
-    description: 'Motor Freight Carriers, Moving and Storage Companies, Trucking – Local/Long Distance, Delivery Services – Local',
-    category: 'Motor Freight Carriers and Trucking - Local and Long Distance, Moving and Storage Companies, and Local Delivery Services '
+    description:
+      'Motor Freight Carriers, Moving and Storage Companies, Trucking – Local/Long Distance, Delivery Services – Local',
+    category:
+      'Motor Freight Carriers and Trucking - Local and Long Distance, Moving and Storage Companies, and Local Delivery Services '
   },
   {
     code: '4215',
@@ -3592,7 +3595,7 @@ export const MCCCatalog = [
   {
     code: '4814',
     description: 'Fax services, Telecommunication Services',
-    category: 'Telecommunication Services'
+    category: 'Bills'
   },
   {
     code: '4815',
@@ -3712,7 +3715,7 @@ export const MCCCatalog = [
   {
     code: '5137',
     description: 'Men’s Women’s and Children’s Uniforms and Commercial Clothing',
-    category: 'Uniforms, Commercial Clothing'
+    category: 'Clothes'
   },
   {
     code: '5139',
@@ -3732,7 +3735,7 @@ export const MCCCatalog = [
   {
     code: '5192',
     description: 'Books, Periodicals, and Newspapers',
-    category: 'Books, Periodicals, and Newspapers'
+    category: 'Online Shopping'
   },
   {
     code: '5193',
@@ -3812,7 +3815,7 @@ export const MCCCatalog = [
   {
     code: '5411',
     description: 'Grocery Stores, Supermarkets',
-    category: 'Grocery Stores, Supermarkets'
+    category: 'Groceries'
   },
   {
     code: '5422',
@@ -3832,7 +3835,7 @@ export const MCCCatalog = [
   {
     code: '5462',
     description: 'Bakeries',
-    category: 'Bakeries'
+    category: 'Food'
   },
   {
     code: '5499',
@@ -3967,7 +3970,7 @@ export const MCCCatalog = [
   {
     code: '5712',
     description: 'Furniture, Home Furnishings, and Equipment Stores, ExceptAppliances',
-    category: 'Furniture, Home Furnishings, and Equipment Stores, Except Appliances'
+    category: 'Home'
   },
   {
     code: '5713',
@@ -3992,12 +3995,12 @@ export const MCCCatalog = [
   {
     code: '5722',
     description: 'Household Appliance Stores',
-    category: 'Household Appliance Stores'
+    category: 'Home'
   },
   {
     code: '5732',
     description: 'Electronic Sales',
-    category: 'Electronics Stores'
+    category: 'Online Shopping'
   },
   {
     code: '5733',
@@ -4022,7 +4025,7 @@ export const MCCCatalog = [
   {
     code: '5812',
     description: 'Eating places and Restaurants',
-    category: 'Eating Places, Restaurants'
+    category: 'Food'
   },
   {
     code: '5813',
@@ -4032,7 +4035,7 @@ export const MCCCatalog = [
   {
     code: '5814',
     description: 'Fast Food Restaurants',
-    category: 'Fast Food Restaurants'
+    category: 'Food'
   },
   {
     code: '5815',
@@ -4156,7 +4159,8 @@ export const MCCCatalog = [
   },
   {
     code: '5961',
-    description: 'Mail Order Houses Including Catalog Order Stores, Book/Record Clubs (No longer permitted for U.S. original presentments)',
+    description:
+      'Mail Order Houses Including Catalog Order Stores, Book/Record Clubs (No longer permitted for U.S. original presentments)',
     category: ''
   },
   {
@@ -4301,7 +4305,8 @@ export const MCCCatalog = [
   },
   {
     code: '6051',
-    description: 'Non-Financial Institutions – Foreign Currency, Money Orders (not wire transfer) and Travelers Cheques',
+    description:
+      'Non-Financial Institutions – Foreign Currency, Money Orders (not wire transfer) and Travelers Cheques',
     category: 'Non-FI, Money Orders'
   },
   {
@@ -4627,7 +4632,7 @@ export const MCCCatalog = [
   {
     code: '7832',
     description: 'Motion Picture Theaters',
-    category: 'Motion Picture Theaters'
+    category: 'Entertainment'
   },
   {
     code: '7841',
@@ -4657,12 +4662,12 @@ export const MCCCatalog = [
   {
     code: '7933',
     description: 'Bowling Alleys',
-    category: 'Bowling Alleys'
+    category: 'Entertainment'
   },
   {
     code: '7941',
     description: 'Commercial Sports, Athletic Fields, Professional Sport Clubs, and Sport Promoters',
-    category: 'Sports Clubs/Fields'
+    category: 'Sport & Fitness'
   },
   {
     code: '7991',
@@ -4686,7 +4691,8 @@ export const MCCCatalog = [
   },
   {
     code: '7995',
-    description: 'Betting (including Lottery Tickets, Casino Gaming Chips, Off-track Betting and Wagers at Race Tracks)',
+    description:
+      'Betting (including Lottery Tickets, Casino Gaming Chips, Off-track Betting and Wagers at Race Tracks)',
     category: 'Betting/Casino Gambling'
   },
   {
@@ -4872,7 +4878,8 @@ export const MCCCatalog = [
   {
     code: '9223',
     description: 'Bail and Bond Payments',
-    category: 'Bail and Bond Payments (payment to the surety for the bond, not the actual bond paid to the government agency) '
+    category:
+      'Bail and Bond Payments (payment to the surety for the bond, not the actual bond paid to the government agency) '
   },
   {
     code: '9311',

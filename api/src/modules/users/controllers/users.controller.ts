@@ -17,19 +17,18 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 
+import { ChatResponse } from '../domain/models';
 import { PaginationCriteria } from '../domain/models/pagination-criteria';
-import { HashPasswordPipe } from '../services';
-import { UsersService } from '../services/users.service';
-
+import { ChatService, HashPasswordPipe, UsersService } from '../services';
 @Controller('users')
 export class UsersController {
-  constructor(protected service: UsersService) {}
+  constructor(protected service: UsersService, private chatService: ChatService) {}
 
   @Post()
   @UsePipes(new HashPasswordPipe())
   public async create(@Body() input: any, @Res() res: Response): Promise<void> {
     try {
-      const user = await this.service.create(input);
+      const user = await this.service.create(input.respons.fullfillment);
       res.status(HttpStatus.CREATED).json(user);
     } catch (e) {
       res.status(HttpStatus.BAD_REQUEST).send(e);
@@ -39,8 +38,16 @@ export class UsersController {
   @Post('/chat')
   public async chat(@Body() input: any, @Res() res: Response): Promise<void> {
     try {
-      // const chatResponse = await this.service.getChatResponse(input);
-      res.status(HttpStatus.CREATED).json('hello');
+      console.log(input);
+      if (input.result.contexts.length) {
+        input.result.parameters = input.result.contexts[0].parameters;
+      }
+      const chatResponse: ChatResponse = await this.chatService.getResponse(
+        input.sessionId,
+        input.result.metadata.intentName,
+        input.result.parameters
+      );
+      res.status(HttpStatus.OK).json(chatResponse);
     } catch (e) {
       res.status(HttpStatus.BAD_REQUEST).send(e);
     }
