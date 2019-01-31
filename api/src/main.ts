@@ -12,6 +12,8 @@ async function bootstrap() {
   // TODO: enable only on dev
   app.use(cors());
   app.useStaticAssets(join(__dirname, 'public'));
+  app.setBaseViewsDir(join(__dirname, 'public', 'client'));
+  app.setViewEngine('html');
   await app.listen(Config.port);
 }
 bootstrap();
