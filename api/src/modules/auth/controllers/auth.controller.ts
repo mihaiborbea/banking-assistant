@@ -2,7 +2,7 @@ import { BadRequestException, Body, Controller, ForbiddenException, Post } from 
 
 import { AuthService } from '../services';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

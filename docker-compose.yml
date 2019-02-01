@@ -34,7 +34,7 @@ services:
     working_dir: /app
     restart: always
     environment:
-      - API_URL=http://0.0.0.0:4001
+      - API_URL=http://0.0.0.0:4001/api
       - PORT=3001
       - DIALOGFLOW_TOKEN=9a3251834022474ba63c0aa3d3115d85
 

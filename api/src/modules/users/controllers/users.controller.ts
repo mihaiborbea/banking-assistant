@@ -20,7 +20,7 @@ import { Response } from 'express';
 import { ChatResponse } from '../domain/models';
 import { PaginationCriteria } from '../domain/models/pagination-criteria';
 import { ChatService, HashPasswordPipe, UsersService } from '../services';
-@Controller('users')
+@Controller('api/users')
 export class UsersController {
   constructor(protected service: UsersService, private chatService: ChatService) {}
 
