@@ -1,7 +1,6 @@
 runtime: nodejs10
 service: default
-manual_scaling:
-  instances: 1
+env: flex
 env_variables:
   PORT: 8080
   MONGODB_HOST: 'banking-data-nzvtn.gcp.mongodb.net'
