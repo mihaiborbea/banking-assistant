@@ -13,6 +13,8 @@ async function bootstrap() {
   app.use(cors());
   app.use(frontendMiddleware);
   app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.useStaticAssets(join(__dirname, '..', 'public', 'client'));
+  console.log('static', join(__dirname, '..', 'public', 'client'));
   await app.listen(Config.port);
 }
 bootstrap();
