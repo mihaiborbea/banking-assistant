@@ -1,10 +1,6 @@
 runtime: python27
 api_version: 1
 threadsafe: true
-env_variables:
-  API_URL: https://11ee2dcf.ngrok.io
-  PORT: 8080
-  DIALOGFLOW_TOKEN: 9a3251834022474ba63c0aa3d3115d85
 handlers:
   - url: /
     static_files: dist/index.html
