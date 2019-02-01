@@ -1,4 +1,1 @@
 dispatch:
-  # Default service serves simple hostname request.
-  - url: 'hera-0311.appspot.com/client*'
-    service: default
