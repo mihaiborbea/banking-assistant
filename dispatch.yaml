@@ -1,0 +1,8 @@
+dispatch:
+  # Send all mobile traffic to the mobile frontend.
+  - url: 'client.hera-0311.appspot.com'
+    service: default
+
+  # Send all work to the one static backend.
+  - url: '*/api/*'
+    service: default
