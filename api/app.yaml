@@ -1,4 +1,5 @@
 runtime: nodejs10
+service: default
 env_variables:
   PORT: 8080
   MONGODB_HOST: 'banking-data-nzvtn.gcp.mongodb.net'
