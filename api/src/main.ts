@@ -9,7 +9,6 @@ import { AppModule } from './modules/app/app.module';
 // tslint:disable-next-line:typedef
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // TODO: enable only on dev
   app.use(cors());
   app.useStaticAssets(join(__dirname, '..', 'public'));
   await app.listen(Config.port);
