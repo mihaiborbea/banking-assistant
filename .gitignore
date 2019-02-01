@@ -30,7 +30,7 @@ node_modules/
 .cache
 
 # build output
-dist
+api/dist
 
 #mongo data
 .mongo-data*
