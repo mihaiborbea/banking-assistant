@@ -4,10 +4,6 @@ import { FuseSharedModule } from '@fuse/shared.module';
 
 const routes = [
   {
-    path: 'summary',
-    loadChildren: './summary/summary.module#SummaryModule'
-  },
-  {
     path: 'transactions',
     loadChildren: './transactions/transactions.module#TransactionsModule'
   },

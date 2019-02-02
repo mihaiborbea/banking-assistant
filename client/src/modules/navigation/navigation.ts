@@ -2,13 +2,6 @@ import { FuseNavigation } from '@fuse/types';
 
 export const navigation: FuseNavigation[] = [
   {
-    id: 'summary',
-    title: 'Summary',
-    type: 'item',
-    icon: 'bar_chart',
-    url: '/dashboards/summary'
-  },
-  {
     id: 'transactions',
     title: 'Transactions',
     type: 'item',

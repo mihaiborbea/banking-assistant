@@ -56,6 +56,114 @@
           </div>
         </fuse-widget>
 
+        <!-- CARD #1 -->
+        <fuse-widget
+          [@animate]="{ value: '*', params: { y: '100%' } }"
+          class="widget"
+          fxLayout="column"
+          fxFlex="100"
+          fxFlex.gt-md="30"
+          fxFlex.gt-xs="50"
+        >
+          <!-- Front -->
+          <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+            <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+              <div class="h3">Card 1</div>
+
+              <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="more">
+                <mat-icon>remove_red_eye</mat-icon>
+              </button>
+            </div>
+
+            <div class="pt-12 pb-36" fxLayout="column" fxLayoutAlign="center center">
+              <div class="red-fg font-size-32 line-height-46">0450 **** *** 1273</div>
+            </div>
+
+            <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+              <span class="h4 secondary-text text-truncate"> Balance: </span>
+              <span class="h4 ml-8">{{ '1234' | currency }}</span>
+            </div>
+          </div>
+          <!-- / Front -->
+
+          <!-- Back -->
+          <div class="fuse-widget-back p-16 pt-32 mat-white-bg mat-elevation-z2">
+            <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="Flip widget">
+              <mat-icon class="s-16">close</mat-icon>
+            </button>
+            <div class="p-8 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+              <span class="h4 secondary-text text-truncate"> Issuer: </span> <span class="h4 ml-8">BRD</span>
+            </div>
+            <div class="p-8 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+              <span class="h4 secondary-text text-truncate"> Number: </span>
+              <span class="h4 ml-8">0450 6348 9816 1273</span>
+            </div>
+            <div class="p-8 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+              <span class="h4 secondary-text text-truncate"> Exp. Date: </span>
+              <span class="h4 ml-8">{{ currentDate | date: 'shortDate' }}</span>
+            </div>
+            <div class="p-8 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+              <span class="h4 secondary-text text-truncate"> CVV: </span> <span class="h4 ml-8">783</span>
+            </div>
+          </div>
+          <!-- / Back -->
+        </fuse-widget>
+        <!-- / CARD #1 -->
+
+        <!-- CARD #2 -->
+        <fuse-widget
+          [@animate]="{ value: '*', params: { y: '100%' } }"
+          class="widget"
+          fxLayout="column"
+          fxFlex="100"
+          fxFlex.gt-md="30"
+          fxFlex.gt-xs="50"
+        >
+          <!-- Front -->
+          <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+            <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+              <div class="h3">Card 1</div>
+
+              <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="more">
+                <mat-icon>remove_red_eye</mat-icon>
+              </button>
+            </div>
+
+            <div class="pt-12 pb-36" fxLayout="column" fxLayoutAlign="center center">
+              <div class="red-fg font-size-32 line-height-46">0450 **** *** 1273</div>
+            </div>
+
+            <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+              <span class="h4 secondary-text text-truncate"> Balance: </span>
+              <span class="h4 ml-8">{{ '1234' | currency }}</span>
+            </div>
+          </div>
+          <!-- / Front -->
+
+          <!-- Back -->
+          <div class="fuse-widget-back p-16 pt-32 mat-white-bg mat-elevation-z2">
+            <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="Flip widget">
+              <mat-icon class="s-16">close</mat-icon>
+            </button>
+            <div class="p-8 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+              <span class="h4 secondary-text text-truncate"> Issuer: </span> <span class="h4 ml-8">BRD</span>
+            </div>
+            <div class="p-8 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+              <span class="h4 secondary-text text-truncate"> Number: </span>
+              <span class="h4 ml-8">0450 6348 9816 1273</span>
+            </div>
+            <div class="p-8 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+              <span class="h4 secondary-text text-truncate"> Exp. Date: </span>
+              <span class="h4 ml-8">{{ currentDate | date: 'shortDate' }}</span>
+            </div>
+            <div class="p-8 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+              <span class="h4 secondary-text text-truncate"> CVV: </span> <span class="h4 ml-8">783</span>
+            </div>
+          </div>
+          <!-- / Back -->
+        </fuse-widget>
+        <!-- / CARD #2 -->
+
         <!-- WIDGET 10 -->
         <fuse-widget
           [@animate]="{ value: '*', params: { y: '100%' } }"
