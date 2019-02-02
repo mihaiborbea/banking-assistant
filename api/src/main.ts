@@ -14,7 +14,7 @@ async function bootstrap() {
   app.use(frontendMiddleware);
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.useStaticAssets(join(__dirname, '..', 'public', 'client'));
-  console.log('static', join(__dirname, '..', 'public', 'client'));
+  app.useStaticAssets(join(__dirname, '..', 'public', 'uploads'));
   await app.listen(Config.port);
 }
 bootstrap();
