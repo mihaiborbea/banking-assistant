@@ -99,7 +99,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   public logout(): void {
     this._authService.logout();
-    this._router.navigate(['']);
+    this._router.navigate(['account', 'login']);
   }
 
   private startHeraHints(): void {

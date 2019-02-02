@@ -48,9 +48,13 @@ export class LoginComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
-    const logged = await this._authService.login(this.loginForm.value);
-    if (logged) {
-      this._router.navigate(['dashboards', 'summary']);
+    try {
+      const logged = await this._authService.login(this.loginForm.value);
+      if (logged) {
+        this._router.navigate(['dashboards', 'transactions']);
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 }
