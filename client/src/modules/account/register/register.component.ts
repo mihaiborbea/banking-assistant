@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public async submit(): Promise<void> {
     const registered = await this._authService.register(this.registerForm.value);
     if (registered) {
-      this._router.navigate(['dashboards', 'summary']);
+      this._router.navigate(['account', 'login']);
     }
   }
 }

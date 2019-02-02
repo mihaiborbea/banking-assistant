@@ -28,7 +28,9 @@ export class UsersController {
   @UsePipes(new HashPasswordPipe())
   public async create(@Body() input: any, @Res() res: Response): Promise<void> {
     try {
-      const user = await this.service.create(input.respons.fullfillment);
+      console.log('here');
+      const user = await this.service.create(input);
+      await this.service.provisionOne(user._id + '');
       res.status(HttpStatus.CREATED).json(user);
     } catch (e) {
       res.status(HttpStatus.BAD_REQUEST).send(e);
