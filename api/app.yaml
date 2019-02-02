@@ -11,5 +11,5 @@ env_variables:
   MONGODB_HOST: 'banking-data-nzvtn.gcp.mongodb.net'
   MONGODB_DATABASE: 'api-data'
   MONGODB_USERNAME: 'root'
-  MONGODB_PASSWORD: 'hera-0311'
+  MONGODB_PASSWORD: 'hera0311'
   MONGODB_LOCATION: 'atlas'
