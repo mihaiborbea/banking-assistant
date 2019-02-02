@@ -17,6 +17,7 @@ const envConfigFile = `
 export const environment = {
   production: ${env === 'prod'},
   apiUrl: '${process.env.API_URL}',
+  files: '${process.env.API_URL.replace('api', 'uploads')}',
   dialogflowToken: '${process.env.DIALOGFLOW_TOKEN}',
 };
 `;

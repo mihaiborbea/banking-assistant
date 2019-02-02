@@ -72,12 +72,12 @@ export class TransactionsService implements Resolve<any> {
     const currentMonthDays = this.getDaysOfMonth(moment().year(), moment().month());
     const sets = { previous: [], current: [] };
     sets.previous.push({
-      label: 'Amount',
+      label: 'Transactions',
       data: previousMonthDays.map((d) => this.getTotalPerDay(+d, data.previous)),
       fill: 'start'
     });
     sets.current.push({
-      label: 'Amount',
+      label: 'Transactions',
       data: currentMonthDays.map((d) => this.getTotalPerDay(+d, data.current)),
       fill: 'start'
     });

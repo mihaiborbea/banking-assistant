@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
   animations: fuseAnimations
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
-  public apiRoot = 'uploads';
+  public apiRoot = environment.files;
   public collection: Collection<Transaction>;
   public columnsToDisplay = ['amount', 'to', 'date', 'category'];
   public chart: any;

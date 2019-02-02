@@ -6,13 +6,12 @@ const resolvePath = (file: string) => path.resolve(__dirname, '..', '..', '..', 
 
 export function frontendMiddleware(req: any, res: any, next: any): any {
   const { url } = req;
-  console.log(url);
   if (url.indexOf('api') === 1) {
     // it starts with /api --> continue with execution
     next();
   } else if (url.indexOf('uploads') === 1) {
-    console.log('here');
-    res.sendFile(resolvePath(`${url}`));
+    const fileName = url.split('/')[url.split('/').length - 1];
+    res.sendFile(resolvePath(path.join('uploads', 'merchants', fileName)));
   } else if (allowedExt.filter(ext => url.indexOf(ext) > 0).length > 0) {
     // it has a file extension --> resolve the file
     res.sendFile(resolvePath(`client${url}`));
