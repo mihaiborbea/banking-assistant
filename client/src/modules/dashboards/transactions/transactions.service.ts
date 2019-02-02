@@ -17,7 +17,6 @@ export class TransactionsService implements Resolve<any> {
   public chart: any;
 
   private transactionsEndpoint: string = environment.apiUrl + '/users';
-  widgets: any[];
 
   constructor(private _httpClient: HttpClient, private readonly _authService: AuthService) {
     const loggedUser = this._authService.getUserAuthData();

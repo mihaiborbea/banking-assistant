@@ -20,6 +20,7 @@ import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 
 import { TransactionsComponent } from './transactions.component';
 import { TransactionsService } from './transactions.service';
+import { CardsService } from './cards.service';
 
 const routes: Routes = [
   {
@@ -53,6 +54,6 @@ const routes: Routes = [
     FuseSidebarModule,
     FuseWidgetModule
   ],
-  providers: [TransactionsService]
+  providers: [TransactionsService, CardsService]
 })
 export class TransactionsModule {}
