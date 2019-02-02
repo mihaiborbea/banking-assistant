@@ -12,4 +12,7 @@ export class Account extends Typegoose {
 
   @prop()
   public main: boolean;
+
+  @prop()
+  public cardNumber: string;
 }

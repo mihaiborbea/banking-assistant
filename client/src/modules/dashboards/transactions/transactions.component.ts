@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { fuseAnimations } from '@fuse/animations';
 import { TransactionsService } from './transactions.service';
-import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
-import { Transaction, Collection } from '../domain';
+import { Transaction, Collection, Account } from '../domain';
 import { environment } from 'environments/environment';
 import { takeUntil } from 'rxjs/operators';
+import { AccountsService } from './accounts.service';
 
 @Component({
   selector: 'transactions',
@@ -19,6 +19,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   public collection: Collection<Transaction>;
   public columnsToDisplay = ['amount', 'to', 'date', 'category'];
   public chart: any;
+  public accounts: Account[];
 
   public selectedMonth = 'current';
 
@@ -26,15 +27,20 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   private _unsubscribe: Subject<any> = new Subject();
 
-  constructor(private _fuseSidebarService: FuseSidebarService, private _transactionsService: TransactionsService) {
+  constructor(private _transactionsService: TransactionsService, private _accountsService: AccountsService) {
     this._registerCustomChartJSPlugin();
   }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this._transactionsService.transactionsChanged.pipe(takeUntil(this._unsubscribe)).subscribe((data) => {
       this.collection = data;
     });
     this.chart = this._transactionsService.chart;
+    try {
+      this.accounts = await this._accountsService.getAccounts();
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   public ngOnDestroy(): void {

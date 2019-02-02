@@ -46,7 +46,7 @@ const appRoutes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/dashboards/summary'
+    redirectTo: '/dashboards/transactions'
   },
   {
     path: '**',
