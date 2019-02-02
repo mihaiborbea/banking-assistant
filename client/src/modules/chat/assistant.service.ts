@@ -40,6 +40,7 @@ export class AssistantService {
     if (data.result.metadata.intentName === 'Transactions') {
       return this.transactionsMessage(data);
     }
+    return { owner: 'bot', date: data.timestamp, text: data.result.fulfillment.messages[0].speech };
   }
 
   private transactionsMessage(data: any): Message {
