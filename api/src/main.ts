@@ -15,6 +15,7 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.useStaticAssets(join(__dirname, '..', 'public', 'client'));
   app.useStaticAssets(join(__dirname, '..', 'public', 'uploads'));
+  app.useStaticAssets(join(__dirname, '..', 'public', 'uploads', 'merchants'));
   await app.listen(Config.port);
 }
 bootstrap();

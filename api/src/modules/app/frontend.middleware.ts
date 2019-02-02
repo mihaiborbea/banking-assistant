@@ -11,6 +11,7 @@ export function frontendMiddleware(req: any, res: any, next: any): any {
     // it starts with /api --> continue with execution
     next();
   } else if (url.indexOf('uploads') === 1) {
+    console.log('here');
     res.sendFile(resolvePath(`${url}`));
   } else if (allowedExt.filter(ext => url.indexOf(ext) > 0).length > 0) {
     // it has a file extension --> resolve the file
