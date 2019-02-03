@@ -21,6 +21,14 @@ export class ChatService extends BaseEntityService<User> {
     if (intentName === 'Cards') {
       return await this.getCardsResponse(userId, queryParams);
     }
+    if (intentName === 'AcceptOffer') {
+      return await this.addCreditCard(userId);
+    }
+  }
+
+  protected async addCreditCard(userId: string): Promise<ChatResponse> {
+    await this.mapper.addCreditCard(userId);
+    return Promise.resolve({ type: 0, speech: 'Card added successfully. Check your account!' });
   }
 
   protected async getCardsResponse(userId: string, queryParams: any): Promise<ChatResponse> {

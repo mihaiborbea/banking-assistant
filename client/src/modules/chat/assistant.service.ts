@@ -45,7 +45,15 @@ export class AssistantService {
 
   private transactionsMessage(data: any): Message {
     const transactions = data.result.fulfillment.messages[0].speech.split(',').join('\n-> ');
-    return { owner: 'bot', date: data.timestamp, text: `You got: \n-> ${transactions}` };
+    const amountsFollowupContext = data.result.contexts.find((c) => c.name === 'amounts-followup');
+    const isOnlineShopping = amountsFollowupContext.parameters.category === 'Online Shopping';
+    return {
+      owner: 'bot',
+      date: data.timestamp,
+      text:
+        `You got: \n-> ${transactions}` +
+        (isOnlineShopping ? `\n\n Are you interested in a Credit Card for Online Shopping?` : '')
+    };
   }
 
   private amountsMessage(data: any): Message {

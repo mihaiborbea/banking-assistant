@@ -39,6 +39,21 @@ export class UsersMapper extends BaseEntityMapper<User> {
       throw new Error('Invalid ID');
     }
   }
+  public async addCreditCard(userId: string): Promise<any> {
+    const userAccounts = (await this.collection.findOne({ _id: new Types.ObjectId(userId) }, 'accounts')).accounts;
+    const creditCard = Object.assign(new Account(), {
+      name: 'eMag',
+      balance: 3000,
+      currency: 'RON',
+      main: true,
+      cardNumber: '8135 6510 9014 7511'
+    });
+    userAccounts.push(creditCard);
+    return await this.collection.findOneAndUpdate(
+      { _id: new Types.ObjectId(userId) },
+      { $set: { accounts: userAccounts } }
+    );
+  }
 
   public async provisionOne(id: string): Promise<User> {
     if (this.isValidObjectId(id)) {
@@ -50,17 +65,10 @@ export class UsersMapper extends BaseEntityMapper<User> {
         main: true,
         cardNumber: '0453 8941 8712 0041'
       });
-      const account2 = Object.assign(new Account(), {
-        name: 'eMag',
-        balance: 0,
-        currency: 'RON',
-        main: true,
-        cardNumber: '8135 6510 9014 7511'
-      });
       // tslint:disable-next-line:max-line-length
       return await this.collection.findOneAndUpdate(
         { _id: new Types.ObjectId(id) },
-        { $set: { accounts: [account, account2], transactions } }
+        { $set: { accounts: [account], transactions } }
       );
     } else {
       throw new Error('Invalid ID');
