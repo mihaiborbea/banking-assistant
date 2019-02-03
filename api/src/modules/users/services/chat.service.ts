@@ -18,6 +18,24 @@ export class ChatService extends BaseEntityService<User> {
     if (intentName === 'Transactions') {
       return await this.getTransactionsResponse(userId, queryParams);
     }
+    if (intentName === 'Cards') {
+      return await this.getCardsResponse(userId, queryParams);
+    }
+  }
+
+  protected async getCardsResponse(userId: string, queryParams: any): Promise<ChatResponse> {
+    const cleanParams = this.getAmountAndCardsParams(queryParams);
+    const succeed = await this.mapper.transferMoneyBetweenAccounts(userId, cleanParams.amount, [
+      cleanParams.firstAcc,
+      cleanParams.secondAcc
+    ]);
+    if (succeed) {
+      return Promise.resolve({ type: 0, speech: 'Transfer succeded. Check your accounts!' });
+    }
+    return Promise.resolve({
+      type: 0,
+      speech: 'Transfer failed. Please check your balance and the accounts you provided.'
+    });
   }
 
   protected async getAmountsResponse(userId: string, queryParams: any): Promise<ChatResponse> {
@@ -84,5 +102,13 @@ export class ChatService extends BaseEntityService<User> {
     if (data['date-period']) {
       return `Between ${data['date-period'].split('/')[0]} and ${data['date-period'].split('/')[1]}`;
     }
+  }
+
+  private getAmountAndCardsParams(params: any): any {
+    const resp: any = {};
+    resp.amount = params['unit-currency'].amount;
+    resp.firstAcc = params.card[0] ? params.card[0].split(' ')[0] : null;
+    resp.secondAcc = params.card[1] ? params.card[1].split(' ')[0] : null;
+    return resp;
   }
 }

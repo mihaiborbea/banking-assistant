@@ -47,16 +47,46 @@ export class UsersMapper extends BaseEntityMapper<User> {
         name: 'Main',
         balance: transactions.map(m => m.amount).reduce((a, b) => a + b),
         currency: 'RON',
-        main: true
+        main: true,
+        cardNumber: '0453 8941 8712 0041'
+      });
+      const account2 = Object.assign(new Account(), {
+        name: 'eMag',
+        balance: 0,
+        currency: 'RON',
+        main: true,
+        cardNumber: '8135 6510 9014 7511'
       });
       // tslint:disable-next-line:max-line-length
       return await this.collection.findOneAndUpdate(
         { _id: new Types.ObjectId(id) },
-        { $set: { accounts: [account], transactions } }
+        { $set: { accounts: [account, account2], transactions } }
       );
     } else {
       throw new Error('Invalid ID');
     }
+  }
+
+  public async transferMoneyBetweenAccounts(userId: string, amount: number, accountNames: string[]): Promise<boolean> {
+    if (accountNames.length < 2) {
+      return false;
+    }
+    const userAccounts = (await this.collection.findOne({ _id: new Types.ObjectId(userId) }, 'accounts')).accounts;
+    const firstAcc = userAccounts.find(acc => acc.name.toLowerCase() === accountNames[0].toLowerCase());
+    const secondAcc = userAccounts.find(acc => acc.name.toLowerCase() === accountNames[1].toLowerCase());
+    if (firstAcc && secondAcc) {
+      if (amount > firstAcc.balance) {
+        return false;
+      }
+      firstAcc.balance = firstAcc.balance - amount;
+      secondAcc.balance = secondAcc.balance + amount;
+      await this.collection.findOneAndUpdate(
+        { _id: new Types.ObjectId(userId) },
+        { $set: { accounts: [firstAcc, secondAcc] } }
+      );
+      return true;
+    }
+    return false;
   }
 
   private async retrieveTransactionsAggregated(id: string, aggregation: string): Promise<any> {
