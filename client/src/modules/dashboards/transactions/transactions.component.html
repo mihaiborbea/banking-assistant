@@ -20,9 +20,10 @@
           fxFlex="100"
           fxFlex.gt-md="30"
           fxFlex.gt-xs="50"
+          *ngFor="let acc of accounts"
         >
           <!-- Front -->
-          <div class="fuse-widget-front mat-white-bg mat-elevation-z2" *ngFor="let acc of accounts">
+          <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
             <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
               <div class="h3">{{ acc.name }}</div>
             </div>
