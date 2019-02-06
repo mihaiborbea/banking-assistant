@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule, MatIconModule } from '@angular/material';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 
@@ -15,7 +14,6 @@ import { FuseProgressBarModule, FuseSidebarModule } from '@fuse/components';
 
 import { fuseConfig } from '../fuse-config/';
 
-import { FakeDbService } from '../fake-db/fake-db.service';
 import { AppComponent } from '../app/app.component';
 import { LayoutModule } from '../layout/layout.module';
 import { AuthGuard } from 'modules/auth/auth.guard';
@@ -66,10 +64,6 @@ export function tokenGetter(): string {
     RouterModule.forRoot(appRoutes),
 
     TranslateModule.forRoot(),
-    InMemoryWebApiModule.forRoot(FakeDbService, {
-      delay: 0,
-      passThruUnknownUrl: true
-    }),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     JwtModule.forRoot({
       config: {

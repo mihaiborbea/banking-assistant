@@ -79,7 +79,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
               ctx.font = (<any>window).Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
 
               // Just naively convert to string for now
-              const dataString = dataset.data[index].toString() + 'k';
+              const dataString = dataset.data[index].toString();
 
               // Make sure alignment settings are correct
               ctx.textAlign = 'center';

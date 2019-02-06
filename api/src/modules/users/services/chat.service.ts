@@ -11,14 +11,18 @@ export class ChatService extends BaseEntityService<User> {
     super();
   }
 
-  public async getResponse(userId: string, intentName: string, queryParams: any): Promise<ChatResponse> {
+  public async getResponse(userId: string, result: any): Promise<ChatResponse> {
+    const intentName = result.metadata.intentName;
     if (intentName === 'Amounts') {
+      const queryParams = result.parameters;
       return await this.getAmountsResponse(userId, queryParams);
     }
     if (intentName === 'Transactions') {
+      const queryParams = result.contexts[1].parameters;
       return await this.getTransactionsResponse(userId, queryParams);
     }
     if (intentName === 'Cards') {
+      const queryParams = result.parameters;
       return await this.getCardsResponse(userId, queryParams);
     }
     if (intentName === 'AcceptOffer') {

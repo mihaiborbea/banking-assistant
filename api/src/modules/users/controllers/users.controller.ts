@@ -20,6 +20,7 @@ import { Response } from 'express';
 import { ChatResponse } from '../domain/models';
 import { PaginationCriteria } from '../domain/models/pagination-criteria';
 import { ChatService, HashPasswordPipe, UsersService } from '../services';
+
 @Controller('api/users')
 export class UsersController {
   constructor(protected service: UsersService, private chatService: ChatService) {}
@@ -44,11 +45,7 @@ export class UsersController {
       if (input.result.contexts.length) {
         input.result.parameters = input.result.contexts[0].parameters;
       }
-      const chatResponse: ChatResponse = await this.chatService.getResponse(
-        input.sessionId,
-        input.result.metadata.intentName,
-        input.result.parameters
-      );
+      const chatResponse: ChatResponse = await this.chatService.getResponse(input.sessionId, input.result);
       res.status(HttpStatus.OK).json(chatResponse);
     } catch (e) {
       res.status(HttpStatus.BAD_REQUEST).send(e);
