@@ -1,40 +1,51 @@
 <div id="login" class="inner-scroll" fxLayout="row" fxLayoutAlign="start">
-    <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
-        <div class="logo" [@animate]="{ value: '*', params: { scale: '0.2' } }"><img src="assets/icons/hera.png" /></div>
+  <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
+    <div class="logo" [@animate]="{ value: '*', params: { scale: '0.2' } }"><img src="assets/icons/hera.png" /></div>
 
-        <div class="title" [@animate]="{ value: '*', params: { delay: '50ms', y: '25px' } }">Welcome to the HERA!</div>
+    <div class="title" [@animate]="{ value: '*', params: { delay: '50ms', y: '25px' } }">Welcome to the HERA!</div>
 
-        <div class="description" [@animate]="{ value: '*', params: { delay: '100ms', y: '25px' } }">Your finance personal assistant :)</div>
+    <div class="description" [@animate]="{ value: '*', params: { delay: '100ms', y: '25px' } }">
+      Your finance personal assistant :)
     </div>
+  </div>
 
-    <div id="login-form-wrapper" fusePerfectScrollbar [@animate]="{ value: '*', params: { delay: '300ms', x: '100%' } }">
-        <div id="login-form">
-            <div class="logo" fxHide.gt-xs><img src="assets/icons/hera.png" /></div>
+  <div id="login-form-wrapper" fusePerfectScrollbar [@animate]="{ value: '*', params: { delay: '300ms', x: '100%' } }">
+    <div id="login-form">
+      <div class="logo" fxHide.gt-xs><img src="assets/icons/hera.png" /></div>
 
-            <div class="title" fxHide.gt-xs>Welcome to the HERA!</div>
+      <div class="title" fxHide.gt-xs>Welcome to the HERA!</div>
 
-            <div class="separator"><mat-icon>lock</mat-icon></div>
+      <div class="separator"><mat-icon>lock</mat-icon></div>
 
-            <form name="loginForm" [formGroup]="loginForm" (ngSubmit)="submit()">
-                <mat-form-field>
-                    <input matInput placeholder="Email" formControlName="email" />
-                    <mat-error *ngIf="loginForm.get('email').hasError('required')"> Email is required </mat-error>
-                    <mat-error *ngIf="!loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email')">
-                        Please enter a valid email address
-                    </mat-error>
-                </mat-form-field>
+      <form name="loginForm" [formGroup]="loginForm" (ngSubmit)="submit()">
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="email" />
+          <mat-error *ngIf="loginForm.get('email').hasError('required')"> Email is required </mat-error>
+          <mat-error *ngIf="!loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email')">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
 
-                <mat-form-field>
-                    <input matInput type="password" placeholder="Password" formControlName="password" />
-                    <mat-error> Password is required </mat-error>
-                </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" formControlName="password" />
+          <mat-error> Password is required </mat-error>
+        </mat-form-field>
 
-                <button mat-raised-button color="accent" class="submit-button" aria-label="LOGIN" [disabled]="loginForm.invalid">LOGIN</button>
-            </form>
+        <button
+          mat-raised-button
+          color="accent"
+          class="submit-button"
+          aria-label="LOGIN"
+          [disabled]="loginForm.invalid"
+        >
+          LOGIN
+        </button>
+      </form>
 
-            <div class="register" fxLayout="column" fxLayoutAlign="center center">
-                <span class="text">Don't have an account?</span> <a class="link" [routerLink]="'/account/register'">Create an account</a>
-            </div>
-        </div>
+      <div class="register" fxLayout="column" fxLayoutAlign="center center">
+        <span class="text">Don't have an account?</span>
+        <a class="link" [routerLink]="'/account/register'">Create an account</a>
+      </div>
     </div>
+  </div>
 </div>

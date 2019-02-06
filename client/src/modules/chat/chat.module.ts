@@ -16,7 +16,6 @@ import {
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
-import { ChatService } from './chat.service';
 import { ChatComponent } from './chat.component';
 import { ChatViewComponent } from './chat-view/chat-view.component';
 import { ChatRightSidenavComponent } from './sidenavs/right/right.component';
@@ -25,10 +24,7 @@ import { AssistantService } from './assistant.service';
 const routes: Routes = [
   {
     path: '**',
-    component: ChatComponent,
-    resolve: {
-      chat: ChatService
-    }
+    component: ChatComponent
   }
 ];
 
@@ -50,6 +46,6 @@ const routes: Routes = [
 
     FuseSharedModule
   ],
-  providers: [ChatService, AssistantService]
+  providers: [AssistantService]
 })
 export class ChatModule {}

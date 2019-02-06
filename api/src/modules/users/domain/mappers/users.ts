@@ -60,7 +60,7 @@ export class UsersMapper extends BaseEntityMapper<User> {
       const transactions = generateTransactions();
       const account = Object.assign(new Account(), {
         name: 'Main',
-        balance: transactions.map(m => m.amount).reduce((a, b) => a + b),
+        balance: Math.abs(transactions.map(m => m.amount).reduce((a, b) => a + b)),
         currency: 'RON',
         main: true,
         cardNumber: '0453 8941 8712 0041'
