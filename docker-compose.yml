@@ -48,5 +48,10 @@ services:
     volumes:
       - hera-mongo-data:/data/db
 
+  config:
+    build: tasks
+    volumes:
+      - .:/app
+
 volumes:
   hera-mongo-data:
